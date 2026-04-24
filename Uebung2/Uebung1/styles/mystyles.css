@@ -1,0 +1,13 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    
+    align-items: center;
+    background-color: #AFAFAF;
+    font-size: small;
+
+}
