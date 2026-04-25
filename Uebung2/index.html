@@ -4,39 +4,33 @@
     <meta charset="UTF-8">
     <title>Webtech26 Testsite</title>
     <link href="./styles/mystyles.css" rel="stylesheet" />
-    <style>
-        h1{
-            text-decoration-line: underline;
-            text-decoration-style: wavy;
-            text-decoration-color: #76B900;
-        }
-         footer p{
-            font-style: italic;
-        }
-        a{
-            color: #76B900;
-        }
-    </style>
 </head>
 <body>
     <header>
         <img src="./bilder/fiw.jpg" alt="Logo von FIW" style="width:42px;height:42px;"/>
         <span>WebTech 2026</span> 
     </header>
-    <main>
+    <main class="container">
+        <div class="left">
         <h1>Willkommen in Webtech!</h1>
         <img src="./bilder/campus_wh.jpg" alt="Bild der HTW" />
         <h2>Die ersten Schritte</h2>
         <ul> 
-            <li> <a href="https://www.w3schools.com/html/">HTML Lernen</a> </li>
-             <li> <a href="https://freiheit.f4.htw-berlin.de/webtech/uebungen/#ubung-1" >Übung 1 absolvieren</a> </li>
-             <li>Lösung ins Git-Repository pushen</li>
+             <li> <a href="https://www.w3schools.com/html/"> HTML Lernen</a> </li>
+             <li> <a href="https://freiheit.f4.htw-berlin.de/webtech/uebungen/#ubung-1"> Übung 1 absolvieren</a> </li>
+             <li> <a href="https://www.w3schools.com/css/"> CSS Lernen</a></li>
+             <li> <a href="https://freiheit.f4.htw-berlin.de/webtech/uebungen/#ubung-2"> Übung 2 absolvieren</a> </li>
+             <li> Lösung ins Git-Repository pushen </li>
         </ul>
-        <p>Hier findest du meinen <a href="http://127.0.0.1:3000/Uebung1/unterseiten/plan.html?vscode-livepreview=true" 
-            >aktuellen Semesterplan</a>. </p>
-        <hr>
-        <p>Externe Links: <a href="https://www.stw.berlin/mensen/einrichtungen/hochschule-f%C3%BCr-technik-und-wirtschaft-berlin/mensa-htw-wilhelminenhof.html"
-            >Mensa-Speiseplan</a> </p>
+        </div>
+        <div class="right">
+        <a href="http://127.0.0.1:3000/Uebung1/unterseiten/plan.html?vscode-livepreview=true"> 
+           <img src="./bilder/plan.png" alt="Semesterplan" style="width: 100px; height: 100px;"> 
+        </a>
+        <a href="https://www.stw.berlin/mensen/einrichtungen/hochschule-f%C3%BCr-technik-und-wirtschaft-berlin/mensa-htw-wilhelminenhof.html">
+            <img src="./bilder/essen.png" alt="Mensa-Essen" style="width: 100px; height: 100px;">
+        </a>
+        </div>
     </main>
     <footer>
         <p>Kassandra Rexin</p>
