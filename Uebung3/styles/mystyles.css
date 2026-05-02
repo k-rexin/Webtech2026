@@ -1,0 +1,34 @@
+header{
+    background-color: green;
+    color: white;
+    text-align: center;
+    padding: 1%;
+    margin: 1%;
+}
+
+.wrapper{
+    display: grid;
+    grid-auto-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 5%;
+    
+}
+
+.citycard{
+ 
+    grid-auto-flow: column;
+    border-style: groove;
+    box-shadow: 5px 5px 10px 2px rgba(0,0,0,0.3);
+    padding: 10%;
+    margin: 5%;
+}
+
+img{
+    width: 80%;
+}
+
+.cityname{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-items: baseline;
+}
