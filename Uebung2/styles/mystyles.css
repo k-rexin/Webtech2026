@@ -1,3 +1,12 @@
+
+/* root gilt für die ganze datei und man kann eigene variablen anlegen */
+:root{
+    --htw-orange: #FF5F00;
+    --htw-blau: #0082D1;
+    --htw-gruen: #76B900;
+    --htw-blassgruen: #9fc951;
+}
+
 body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: #f3f8e9;
@@ -5,23 +14,69 @@ body{
 header{
     display: flex;
     justify-content: space-between;
-    height: 50px;
-    padding: 5px;
+    height: 6vh;
+    padding: 1vw;
     align-items: center;
     background-color: #AFAFAF;
     font-size: small;
 }
-.container {
+
+h1 {
+    color: #0082D1;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--htw-gruen);
+}
+h2{
+    margin-left: 20px;
+    padding: 5px;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--htw-gruen);
+}
+ul{
+    padding: 10px;
+    list-style-type: none;
+    li{
+        margin: 5px;
+        padding: 5px;
+        border: 2px solid black;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 5px 5px 10px 2px rgba(122, 122, 122, 0.3);
+    }
+}
+
+li:hover{
+    color:var(--htw-blassgruen);
+    background-color: #edf5df;
+    border: 2px solid var(--htw-blassgruen);
+    a{
+        color: var(--htw-blassgruen);
+    }
+}
+
+li> a:hover{
+    color: var(--htw-blassgruen);
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+/* ist ID und nur einmal benutzbar */
+#container {
   display: flex;  
   flex-flow: row;
   justify-content: space-between;
-  margin: 10px;
+  margin: 1vw;
 }
 
 .left{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: space-around; */
 }
 .right{
     display: flex;
@@ -29,69 +84,47 @@ header{
     background-color: #e7f2d3;
     flex-direction: column;
 }
-
-h1 {
-    color: #0082D1;
-    text-decoration-line: underline;
-    text-decoration-style: wavy;
-    text-decoration-color: #76B900;
-}
-h2{
-    margin-left: 20px;
-    padding: 5px;
-    text-decoration-line: underline;
-    text-decoration-style: wavy;
-    text-decoration-color: #76B900;
-}
-ul{
-    padding: 10px;
-}
-li{
-    list-style-type: none;
-    margin: 5px;
-    padding: 5px;
-    border: 2px solid black;
-    border-radius: 10px;
-    text-align: center;
-}
-li:hover{
-    color:#9fc951;
-    background-color: #edf5df;
-    border: 2px solid #9fc951;
-
-}
-li> a:hover{
-    color: #9fc951;
-}
-a{
-    text-decoration: none;
-    color: black;
+a>img{
+    width: 15vw;
 }
 
 .button{
-    background-color: #0082D1;
+    background-color: var(--htw-blau);
     color: white;
     border-radius: 5px;
     padding: 5px;
     margin: 10px;
 
 }
+
+table{
+    border-collapse: collapse;
+}
+
 thead{
-    background-color: #76B900;
+    background-color: var(--htw-gruen);
     color: white;
+    
 }
 
 th, td{
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #AFAFAF;
+
 }
-tr:nth-child(even) { background-color: #e1e1e1;}
-tr:hover{ background-color: #AFAFAF;}
+
+tbody>tr:nth-child(even) {
+     background-color: #e1e1e1; 
+}
+
+tbody>tr:hover{ 
+    background-color: #AFAFAF; 
+}
 
 
 footer{
-    background-color:#FF5F00;
+    background-color:var(--htw-orange);
     height: 50px;
     padding: 5px;
     text-align: center;
