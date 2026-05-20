@@ -9,26 +9,26 @@
     <link href="../bootstrap-5.3.8-dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="container-fluid">
     <header>
-        <h2>Teilnehmerinnen Registrierung</h2>
+        <h2 class="p-2">Teilnehmerinnen Registrierung</h2>
     </header>
     <main>
-        <form>
+        <form class="p-2">
             <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                    <input type="text" class="form-control" id="firstNameId" placeholder="First name" aria-label="First name">
                 </div>
-                <div class="col">
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
                     <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
                 </div>
             </div>
             <br>
             <div class="row">
-                <div class="col">
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
                     <input type="text" class="form-control" placeholder="E-Mail" aria-label="First name">
                 </div>
-                <div class="col">
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
                     <input type="text" class="form-control" placeholder="IP-Address" aria-label="Last name">
                 </div>
             </div>
@@ -36,15 +36,26 @@
             </br>
             <input type="checkbox" class="btn-check" id="btn-check-2-outlined" checked autocomplete="off">
             <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Abbrechen</label>
-            <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off"
-                checked>
-            <label class="btn btn-outline-success" for="success-outlined">Registrieren</label>
+            <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" checked autocomplete="off">
+            <label class="btn btn-outline-success" onclick="register()" for="success-outlined">Registrieren</label>
         </form>
 
     </main>
-    <footer>
+    
 
-    </footer>
 </body>
 
 </html>
+
+<script>
+    function register(){
+        console.log('Register-Button geklickt');
+        const inputElementFirstName = document.querySelector('#firstNameId');
+        console.log('inputElementFirstName: ', inputElementFirstName);
+        const firstName = inputElementFirstName.value;
+        console.log('firstName : ' , firstName);
+    }
+
+
+
+</script>
