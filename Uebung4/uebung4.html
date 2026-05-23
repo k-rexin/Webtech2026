@@ -11,51 +11,111 @@
 
 <body class="container-fluid">
     <header>
-        <h2 class="p-2">Teilnehmerinnen Registrierung</h2>
+        <h2 class="pb-2 pt-4 text-success">Teilnehmerinnen Registrierung</h3>
     </header>
-    <main>
-        <form class="p-2">
-            <div class="row">
-                <div class="col-12 col-md-6 col-xl-3 mb-3">
-                    <input type="text" class="form-control" id="firstNameId" placeholder="First name" aria-label="First name">
-                </div>
-                <div class="col-12 col-md-6 col-xl-3 mb-3">
-                    <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-12 col-md-6 col-xl-3 mb-3">
-                    <input type="text" class="form-control" placeholder="E-Mail" aria-label="First name">
-                </div>
-                <div class="col-12 col-md-6 col-xl-3 mb-3">
-                    <input type="text" class="form-control" placeholder="IP-Address" aria-label="Last name">
+    <main class="p-2">
+
+        <form class="row g-3 needs-validation" novalidate>
+            <div class="col-6 col-md-6 col-xl-3 mb-3">
+                <input type="text" class="form-control" id="validationVorname" placeholder="Vorname" required>
+                <div class="invalid-feedback">
+                    Bitte Vornamen eingeben.
                 </div>
             </div>
 
-            </br>
-            <input type="checkbox" class="btn-check" id="btn-check-2-outlined" checked autocomplete="off">
-            <label class="btn btn-outline-secondary" for="btn-check-2-outlined">Abbrechen</label>
-            <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" checked autocomplete="off">
-            <label class="btn btn-outline-success" onclick="register()" for="success-outlined">Registrieren</label>
+            <div class="col-6 col-md-6 col-xl-3 mb-3">
+                <input type="text" class="form-control" id="validationNachname" placeholder="Nachname" required>
+                <div class="invalid-feedback">
+                    Bitte Nachnamen eingeben.
+                </div>
+            </div>
+
+            <div class="col-6 col-md-6 col-xl-3 mb-3">
+                <input type="text" class="form-control" id="validationEMail" placeholder="E-Mail" required>
+                <div class="invalid-feedback">
+                    Bitte E-Mail eingeben.
+                </div>
+            </div>
+
+            </div>
+            <div class="col-6 col-md-6 col-xl-3 mb-3">
+                <input type="text" class="form-control" id="validationIPAdresse" placeholder="IP-Adresse" required>
+                <div class="invalid-feedback">
+                    Bitte IP-Adresse eingeben.
+                </div>
+            </div>
         </form>
 
-    </main>
-    
+        </br>
+        <button type="button" class="btn btn-secondary" onclick="loeschen()">Abbrechen</button>
+        <button type="button" class="btn btn-success border-success-subtle border-3"
+            onclick="wiedergabe()">Registrieren</button>
 
+        <div id="ausgabe"></div>
+
+
+    </main>
 </body>
 
 </html>
 
 <script>
-    function register(){
-        console.log('Register-Button geklickt');
-        const inputElementFirstName = document.querySelector('#firstNameId');
-        console.log('inputElementFirstName: ', inputElementFirstName);
-        const firstName = inputElementFirstName.value;
-        console.log('firstName : ' , firstName);
+
+    const eingaben = [
+            "validationVorname",
+            "validationNachname",
+            "validationEMail",
+            "validationIPAdresse"
+        ];
+
+    function wiedergabe() {
+        if (!validieren()) return; // Abbruch wenn Validierung fehlschlägt
+
+        const vorname = document.getElementById("validationVorname").value;
+        const nachname = document.getElementById("validationNachname").value;
+        const eMail = document.getElementById("validationEMail").value;
+        const ipAdresse = document.getElementById("validationIPAdresse").value;
+
+        document.getElementById("ausgabe").innerHTML =
+            `<h3 class="pb-2 pt-4">Eingegebene Werte</h3>
+            <table class="table table-bordered">
+            <tr><td>Vorname: ${vorname}</td></tr>
+            <tr><td>Nachname: ${nachname}</td></tr>
+            <tr><td>E-Mail: ${eMail}</td></tr>
+            <tr><td>IP-Adresse: ${ipAdresse}</td></tr>
+            </table>`
     }
 
+    function validieren() {
+        let allesGueltig = true;
+
+        eingaben.forEach(id => 
+            {
+                const input = document.getElementById(id);
+                if (input.value.trim() !== "") {
+                    input.classList.add("is-valid");
+                    input.classList.remove("is-invalid");
+                }
+                else {
+                    input.classList.add("is-invalid");
+                    input.classList.remove("is-valid");
+                    allesGueltig = false;
+                }
+            }
+        );
+        return allesGueltig; // true = alle Felder befüllt, false = mind. ein Feld leer
+    }
+
+    function loeschen() {
+        eingaben.forEach(id => 
+            {
+            const input = document.getElementById(id);
+            input.value = ""; 
+            input.classList.remove("is-valid", "is-invalid");
+            }
+        );
+        document.getElementById("ausgabe").innerHTML = "";
+    }
 
 
 </script>
