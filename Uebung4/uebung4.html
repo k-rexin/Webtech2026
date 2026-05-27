@@ -15,7 +15,7 @@
     </header>
     <main class="p-2">
 
-        <form class="row g-3 needs-validation" novalidate>
+        <form class="row g-3">
             <div class="col-6 col-md-6 col-xl-3 mb-3">
                 <input type="text" class="form-control" id="validationVorname" placeholder="Vorname" required>
                 <div class="invalid-feedback">
@@ -53,6 +53,10 @@
 
         <div id="ausgabe"></div>
 
+        <h3 class="pb-2 pt-4">Eingegebene Werte</h3>
+        <ul class="list-group" id="werteListe"></ul>
+
+
 
     </main>
 </body>
@@ -60,13 +64,65 @@
 </html>
 
 <script>
+    function wiedergabe(){
+   // event.preventDefault();
+    const allInputs = document.querySelectorAll('input'); //alle input-elemente als array
+    console.log('allInputs: ', allInputs);
+    const outputList = document.querySelector('#werteListe'); // ul mit id werteliste 
+    outputList.innerHTML = "";
+    
+    let inputOK= true;
+    for (i = 0; i < allInputs.length; i++) 
+    {
+        console.log((i + 1) + ". value: " + allInputs[i].value);
+        if (allInputs[i].value == "") // == ist gleichheit auch von verschiedenen typen  === identisch bei gleichen typen
+        {
+            // keine eingbe in allInputs[i]
+            inputOK = false;
+            allInputs[i].classList.add('is-invalid');
+            allInputs[i].classList.remove('is-valid');
+        }
+        else 
+        {
+            // Eingabe in allInputs[i]
+            allInputs[i].classList.add('is-valid');
+            allInputs[i].classList.remove('is-invalid');
+            outputList.innerHTML += `<li class="list-group-item"> ${allInputs[i].placeholder}: ${allInputs[i].value} </li>`;
+            //liste wird befüllt mit html 
+        }
+    }
 
-    const eingaben = [
-            "validationVorname",
-            "validationNachname",
-            "validationEMail",
-            "validationIPAdresse"
-        ];
+    const headline = document.querySelector('h3');
+    if(inputOK)
+    {
+        headline.textContent = "Eingegebene Werte"; 
+        headline.style.color = "green";
+        outputList.style.display = "block";
+    }
+    else
+    {
+        headline.textContent = "Bitte alle Felder ausfüllen!";
+        headline.style.color = "red";
+        outputList.style.display = "none"; // liste erscheint nicht 
+    }
+    }
+
+    function loeschen() {   //??
+        eingaben.forEach(id => {
+            const input = document.getElementById(id);
+            input.value = "";
+            input.classList.remove("is-valid", "is-invalid");
+        }
+        );
+        document.getElementById("werteliste").innerHTML = "";
+    }
+
+   /* const eingaben = [
+        "validationVorname",
+        "validationNachname",
+        "validationEMail",
+        "validationIPAdresse"
+    ];
 
     function wiedergabe() {
         if (!validieren()) return; // Abbruch wenn Validierung fehlschlägt
@@ -78,44 +134,43 @@
 
         document.getElementById("ausgabe").innerHTML =
             `<h3 class="pb-2 pt-4">Eingegebene Werte</h3>
-            <table class="table table-bordered">
-            <tr><td>Vorname: ${vorname}</td></tr>
-            <tr><td>Nachname: ${nachname}</td></tr>
-            <tr><td>E-Mail: ${eMail}</td></tr>
-            <tr><td>IP-Adresse: ${ipAdresse}</td></tr>
-            </table>`
+            <ul class="list-group">
+            <li class="list-group-item">Vorname: ${vorname}</li>
+            <li class="list-group-item">Nachname: ${nachname}</li>
+            <li class="list-group-item">E-Mail: ${eMail}</li>
+            <li class="list-group-item">IP-Adresse: ${ipAdresse}</li>
+            </ul>`
     }
 
     function validieren() {
         let allesGueltig = true;
 
-        eingaben.forEach(id => 
-            {
-                const input = document.getElementById(id);
-                if (input.value.trim() !== "") {
-                    input.classList.add("is-valid");
-                    input.classList.remove("is-invalid");
-                }
-                else {
-                    input.classList.add("is-invalid");
-                    input.classList.remove("is-valid");
-                    allesGueltig = false;
-                }
+        eingaben.forEach(id => {
+            const input = document.getElementById(id);
+            if (input.value.trim() !== "") {
+                input.classList.add("is-valid"); //input.classList ist ein array aller class="" des inputElements
+                input.classList.remove("is-invalid");
             }
+            else {
+                input.classList.add("is-invalid");
+                input.classList.remove("is-valid");
+                allesGueltig = false;
+            }
+        }
         );
         return allesGueltig; // true = alle Felder befüllt, false = mind. ein Feld leer
     }
 
     function loeschen() {
-        eingaben.forEach(id => 
-            {
+        eingaben.forEach(id => {
             const input = document.getElementById(id);
-            input.value = ""; 
+            input.value = "";
             input.classList.remove("is-valid", "is-invalid");
-            }
+        }
         );
         document.getElementById("ausgabe").innerHTML = "";
     }
 
+    */
 
 </script>
