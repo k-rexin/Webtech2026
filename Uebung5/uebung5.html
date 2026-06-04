@@ -14,15 +14,15 @@
 </head>
 <body class="container" onload="init()">
     <h1>Sädte</h1>
-    <div class="row my-4">
-        <div class="col-2">
+    <div class="row my-4"> <!--- grid mit 2 spalten in der 1. zeil und 5 spalten in den nächsten zeilen-->
+        <div class="col-2"> 
             <label for="filter">Filter:</label>
         </div>
         <div class="col-10">
-            <input type="text" class="form-control" id="filter" oninput="createTable()"/>
+            <input type="text" class="form-control" id="filter" oninput="createTable()"/> <!-- bei jedem eingegebenen zeichen wir createtable erneut aufgerufen-->
         </div>     
     </div>
-    <table class="table table-striped table-hover align-middle">
+    <table class="table table-striped table-hover align-middle"> <!-- bootstrap-->
         <thead>
             <tr>
                 <th scope="col">Nr</th>
@@ -33,15 +33,12 @@
             </tr>
         </thead>
         <tbody id="tbody">
-            
-        
-        
         </tbody>
     </table>
 
 
     <script>
-        let staedtearr = []; // hier wird array global erstellt 
+        let staedtearr = []; // hier wird array global deklariert und leer inititalisiert
 
         async function getStaedte() {
 
@@ -63,33 +60,30 @@
             if(staedtearr.length > 0) //falls array länger als 0
             {
                 let tbody = document.getElementById('tbody'); //tbody variable
-                tbody.innerHTML = ''; // leer erstellt
+                tbody.innerHTML = ''; // leer befüllt, veraendert den DOM
                 let nr = 1; // counter??
                     for(let stadtObj of staedtearr) //for each obj vom array
                     { 
                         if(stadtObj.stadt.toLowerCase().substring(0, input.length) == input.toLowerCase() ||
-                           stadtObj.jahr.toString().toLowerCase().substring(0, input.length) == input.toLowerCase()  ) // wenn stadt mit input anfaengt
-                        {
+                           stadtObj.jahr.toString().substring(0, input.length) == input) // wenn stadt mit input anfaengt
+                        { // TableRow TableData
                             tbody.innerHTML += `<tr>
-                                                <td> ${nr} </td>
+                                                <td> ${nr} </td> 
                                                 <td> ${stadtObj.jahr} </td>
                                                 <td> ${stadtObj.stadt} </td>
                                                 <td> <a class="btn btn-success btn-sm" href="${stadtObj.link}">Info</a> </td>
-                                                <td> <img src="${stadtObj.bild}" alt="stadt aus staedte.json"/> </td>
-                                                </tr>`;
+                                                <td> <img src="${stadtObj.bild}" alt="${stadtObj.stadt}"/> </td>
+                                                </tr>`; //
                                                 nr++;
-                        }
-                        
+                        }  
                     }
-        
             }
-        
         }
 
-        async function init() {
+        async function init() { // wird beim laden der webseite aufegrufen
                     
-            let bodyObj = await getStaedte() // ruft func auf
-            console.log('responseObj', bodyObj) //gibt response.json wieder auf konsole
+            let bodyObj = await getStaedte() // bekommt json body übergeben
+            console.log('responseObj', bodyObj) //json hat nur ein objekt und hier wird nur der body davon ausgegegebn
             staedtearr = await bodyObj.staedte; // erstellt array mit der response.json datei/ davon die staedte
             console.log('staedtearr', staedtearr) // gibt array wieder auf konsole
             createTable() //aufruf
