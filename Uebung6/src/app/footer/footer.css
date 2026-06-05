@@ -1,0 +1,10 @@
+
+p {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: aliceblue;
+    background-color: rgb(219, 206, 206);
+    padding: 2%;
+    text-align: center;
+    position: sticky;
+    bottom:1%;
+}
