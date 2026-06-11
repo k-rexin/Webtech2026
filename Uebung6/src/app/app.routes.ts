@@ -1,8 +1,10 @@
-import { Routes } from '@angular/router';
-import { Read } from './table/read/read';
-import { Create } from './form/create/create';
+import { Routes } from '@angular/router';   
+import { Home } from './home/home';
+import { Table } from './table/table';
+import { Form } from './form/form';
 
 export const routes: Routes = [
-    {path: "read", component: Read},
-    {path: "create", component: Create}
+    {path: "", component: Home},
+    {path: "read", component: Table},
+    {path: "create", component: Form}
 ];

@@ -1,6 +1,7 @@
-div{
+#nav{
     background-color: rgb(45, 45, 165);
-    padding: 2%;
+    padding: 1%;
+    
 }
 a{
     font-family: Arial, Helvetica, sans-serif;
