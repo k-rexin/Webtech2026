@@ -1,3 +1,4 @@
+<div class="container" id="form"> <!--container class rueckt alles ein bisschen seitlich rein-->
 <h2>Neue Teilnehmerin</h2>
 
 <div class="container-fluid">
@@ -6,7 +7,7 @@
             Vorname
         </div>
         <div class="col-9">
-            <input type="text" class="form-control" placeholder="Vorname" aria-label="Vorname">
+            <input type="text" class="form-control" [formControl]="vornameControl" placeholder="Vorname" aria-label="Vorname">
         </div>
     </div>
     <div class="row p-2">
@@ -14,7 +15,7 @@
             Nachname
         </div>
         <div class="col-9">
-            <input type="text" class="form-control" placeholder="Nachname" aria-label="Nachname">
+            <input type="text" class="form-control" [formControl]="nachnameControl" placeholder="Nachname" aria-label="Nachname">
         </div>
     </div>
      <div class="row p-2">
@@ -22,7 +23,7 @@
             E-Mail
         </div>
         <div class="col-9">
-            <input type="text" class="form-control" placeholder="E-mail" aria-label="E-mail">
+            <input type="text" class="form-control" [formControl]="emailControl" placeholder="E-mail" aria-label="E-mail">
         </div>
     </div>
      <div class="row p-2">
@@ -30,13 +31,13 @@
             IP-Adresse
         </div>
         <div class="col-9">
-            <input type="text" class="form-control" placeholder="IP-Adresse" aria-label="IP-Adresse">
+            <input type="text" class="form-control" [formControl]="ipAdresseControl"  placeholder="IP-Adresse" aria-label="IP-Adresse">
         </div>
     </div>
     <div class="row p-2">
         <div class="col text-end">
-            <button type="button" class="btn btn-success">Success</button>
+            <button type="button" class="btn btn-success" [disabled]="!isValid()" (click)="create()" >Speichern</button>
         </div>
     </div>
 </div>
-
+</div>

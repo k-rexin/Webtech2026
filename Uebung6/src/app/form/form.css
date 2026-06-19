@@ -1,3 +1,7 @@
+#form{
+    min-height: 80vh;
+}
+
 h2{
     color: blueviolet;
     text-decoration: underline;
