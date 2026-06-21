@@ -1,10 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
+import { NgOptimizedImage } from '@angular/common'; // fuer performantes loaden vom BG
+import { Footer } from './footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header],
+  imports: [RouterOutlet, Header, Footer, NgOptimizedImage],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

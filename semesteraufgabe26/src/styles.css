@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import '@fontsource-variable/raleway/wght.css';
+@import '@fontsource-variable/raleway/wght-italic.css';
+
+:root{
+    --dark-purple: #96AAE9;
+    --white: #F3F5F9;
+    --light-blue: #E4EEF9;
+    --blue: #D5E8F6;
+    --light-purple: #CFD9FB;
+    --font-main: 'Raleway Variable', sans-serif;
+}
+
+body{
+    font-family: var(--font-main);
+}
