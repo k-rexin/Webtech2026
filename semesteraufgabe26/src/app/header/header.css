@@ -9,7 +9,7 @@ header{
     width: 100vw;
     text-align: center;
     color: var(--purple);
-    z-index: 10;
+   
 }
 
 h2{
@@ -22,5 +22,5 @@ h5{
     display: inline-block;
     border-style:solid;
     border-width: 0.25rem;
-    border-color: rgb(from var(--light-blue) r g b / 50%);
+    border-color: rgb(from var(--light-purple) r g b / 75%);
 }

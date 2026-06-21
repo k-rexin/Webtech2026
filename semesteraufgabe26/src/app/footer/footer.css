@@ -8,7 +8,12 @@ footer{
     width: 100vw;
     font-style: italic;
     text-align: center;
-    color: var(--dark);
-    background-color: rgb(from var(--light-purple) r g b / 50%); /* damit nur die farbe durchsichtig ist*/
-    z-index:10;
+    color: rgb(from var(--dark) r g b / 75%);
+    /*background-color: rgb(from var(--light-purple) r g b / 50%);  damit nur die farbe durchsichtig ist*/
+    
+}
+div{
+    display: inline-block;
+    border-style:solid;
+    border-color: rgb(from var(--light-purple) r g b / 75%);
 }
