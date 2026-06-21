@@ -1,0 +1,26 @@
+:host {
+  display: contents;
+}
+
+header{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    text-align: center;
+    color: var(--purple);
+    z-index: 10;
+}
+
+h2{
+    margin-bottom: 0;
+    font-weight:600;
+}
+
+h5{
+    font-weight: 400;
+    display: inline-block;
+    border-style:solid;
+    border-width: 0.25rem;
+    border-color: rgb(from var(--light-blue) r g b / 50%);
+}

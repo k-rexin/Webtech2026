@@ -3,14 +3,14 @@
 @import '@fontsource-variable/raleway/wght-italic.css';
 
 :root{
-    --dark-purple: #96AAE9;
-    --white: #F3F5F9;
-    --light-blue: #E4EEF9;
-    --blue: #D5E8F6;
-    --light-purple: #CFD9FB;
-    --font-main: 'Raleway Variable', sans-serif;
+    --dark:#112243;
+    --grey: #7790B9;
+    --purple: #98ACEC;
+    --light-blue: #CDF2FF;
+    --light-purple: #D2DCFF;
+    --font: 'Raleway Variable', sans-serif;
 }
 
 body{
-    font-family: var(--font-main);
+    font-family: var(--font);
 }

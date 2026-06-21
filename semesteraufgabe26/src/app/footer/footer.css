@@ -1,0 +1,14 @@
+:host {
+  display: contents; /* um verhalten von app-footer zu veraendern*/
+}
+footer{
+    position: fixed;
+    bottom:0;
+    left:0;
+    width: 100vw;
+    font-style: italic;
+    text-align: center;
+    color: var(--dark);
+    background-color: rgb(from var(--light-purple) r g b / 50%); /* damit nur die farbe durchsichtig ist*/
+    z-index:10;
+}
