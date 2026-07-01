@@ -1,21 +1,39 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Nr.</th>
-      <th scope="col">Vorname</th>
-      <th scope="col">Name</th>
-      <th scope="col">E-Mail</th>
-      <th scope="col">IP-Adresse</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>test</td>
-      <td>test</td>
-      <td>test</td>
-      <td>test</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
 
+  <input class=" mt-5 form-control" [formControl]="search" (input)="filter()" />
+
+  @if(filteredMembers().length == 0)
+  {
+  <h3>keine einträge vorhanden</h3>
+  }
+  @else
+  {
+  <h3 class="my-3">Alle Teilnehmerinnen</h3>
+
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nr.</th>
+        <th scope="col">Vorname</th>
+        <th scope="col">Name</th>
+        <th scope="col">E-Mail</th>
+        <th scope="col">IP-Adresse</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(member of filteredMembers(); track $index)
+      {
+      <tr>
+        <th>{{$index +1}}</th>
+        <td>{{member.forename}}</td>
+        <td>{{member.surname}}</td>
+        <td>{{member.email}}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+
+</div>
