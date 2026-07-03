@@ -1,0 +1,14 @@
+button{
+    background-color: var(--light-blue);
+    color: var(--dark);
+}
+
+.form-control{
+    color: var(--grey);
+    background-color: rgb(from var(--light-purple) r g b / 75%);
+    text-align: center;
+}
+
+form{
+    align-content: center;
+}

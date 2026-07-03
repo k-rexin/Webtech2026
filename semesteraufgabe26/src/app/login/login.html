@@ -1,0 +1,43 @@
+<main class="container-fluid text-center mx-auto " style="width: 40vw">
+    <div class="pt-3 pb-3">
+        LOGO!
+        <h3 class="p-2">Flavour text!! </h3>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem consectetur nostrum sint nemo, dolores, numquam
+        assumenda, dolorum incidunt nobis temporibus vitae quo neque. Doloribus enim delectus impedit quibusdam,
+        voluptas sit.
+    </div>
+
+    <!--hier mischung aus bootstrap design mit angular formField function zur anbindung -->
+    <form (submit)="onSubmit($event)" class="">
+        <div class="form-floating mb-3">
+            <input type="username" [formField]="loginForm.username" class="form-control" id="floatingUsername"
+                placeholder="Username">
+            <label for="floatingUsername">Username</label>
+        </div>
+        @if (loginForm.username().touched() && loginForm.username().invalid()){
+            <div class="error-list">
+                @for (error of loginForm.username().errors(); track error){
+                    <p>{{ error.message }}</p>
+                }
+            </div>
+        }
+
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" [formField]="loginForm.password" id="floatingPassword"
+                placeholder="Passwort">
+            <label for="floatingPassword">Passwort</label>
+        </div>
+        @if(loginForm.password().touched() && loginForm.username().invalid()){
+            <div class="error-list">
+                @for(error of loginForm.password().errors(); track error){
+                    <p>{{ error.message }}</p>
+                }
+            </div>
+        }
+
+        <button type="submit" class="btn btn-outline-info">Login</button>
+
+
+    </form>
+
+</main>
