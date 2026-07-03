@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { form, required, FormField } from '@angular/forms/signals';
+import { NgOptimizedImage } from "@angular/common";
 
 interface LoginData {
   username: string;
@@ -8,7 +9,7 @@ interface LoginData {
 
 @Component({
   selector: 'app-login',
-  imports: [FormField],
+  imports: [FormField, NgOptimizedImage],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

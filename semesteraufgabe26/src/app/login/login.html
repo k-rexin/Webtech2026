@@ -1,16 +1,19 @@
-<main class="container-fluid text-center mx-auto " style="width: 40vw">
-    <div class="pt-3 pb-3">
-        LOGO!
+<main class="container-fluid">
+    <section class="pt-3 pb-5 text-center mx-auto" style="width: 40vw">
+    
+        <img src="Logo-Photoroom.png" class="img-fluid w-50" alt="logo"/>
+        
         <h3 class="p-2">Flavour text!! </h3>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem consectetur nostrum sint nemo, dolores, numquam
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem consectetur nostrum sint nemo, dolores, numquam
         assumenda, dolorum incidunt nobis temporibus vitae quo neque. Doloribus enim delectus impedit quibusdam,
         voluptas sit.
-    </div>
+        </p>
+    </section>
 
     <!--hier mischung aus bootstrap design mit angular formField function zur anbindung -->
-    <form (submit)="onSubmit($event)" class="">
-        <div class="form-floating mb-3">
-            <input type="username" [formField]="loginForm.username" class="form-control" id="floatingUsername"
+    <form class="text-center mx-auto" style="width: 20vw" (submit)="onSubmit($event)">
+        <div class="form-floating mb-3 shadow">
+            <input type="text" [formField]="loginForm.username" class="form-control" id="floatingUsername"
                 placeholder="Username">
             <label for="floatingUsername">Username</label>
         </div>
@@ -22,12 +25,12 @@
             </div>
         }
 
-        <div class="form-floating mb-3">
-            <input type="password" class="form-control" [formField]="loginForm.password" id="floatingPassword"
+        <div class="form-floating mb-3 shadow">
+            <input type="password" [formField]="loginForm.password" class="form-control" id="floatingPassword"
                 placeholder="Passwort">
             <label for="floatingPassword">Passwort</label>
         </div>
-        @if(loginForm.password().touched() && loginForm.username().invalid()){
+        @if(loginForm.password().touched() && loginForm.password().invalid()){
             <div class="error-list">
                 @for(error of loginForm.password().errors(); track error){
                     <p>{{ error.message }}</p>
@@ -35,9 +38,7 @@
             </div>
         }
 
-        <button type="submit" class="btn btn-outline-info">Login</button>
-
-
+        <button type="submit" class="btn px-4">Login</button>
     </form>
 
 </main>

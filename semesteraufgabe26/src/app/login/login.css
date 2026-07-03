@@ -1,14 +1,26 @@
-button{
-    background-color: var(--light-blue);
+p{
     color: var(--dark);
+}
+
+
+button{
+    background-color: rgb(from var(--purple) r g b / 75%);
+    color: var(--dark);
+    border-color: var(--dark);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0, 0.15);
+}
+
+button:hover{
+    background-color: var(--purple);
+    border-color: var(--dark);
+    font-weight: 500;
+    border-width: 0.1rem;
+    box-shadow: 0 .8rem 2rem rgba(0,0,0, 0.19);
 }
 
 .form-control{
     color: var(--grey);
-    background-color: rgb(from var(--light-purple) r g b / 75%);
+    background-color: rgb(from var(--light-blue) r g b / 75%);
     text-align: center;
 }
 
-form{
-    align-content: center;
-}
