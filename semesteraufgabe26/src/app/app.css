@@ -1,17 +1,12 @@
-img{
+.background-wrapper{
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    object-fit: cover; /* fuellt aus mit gleichen seitenverhaeltnis */
     z-index: -1; /* legt bild permanent in hinter andere objekte */
 }
-main{
-    position: fixed;
-    top: 4.5rem;      /* hoehe vom header */
-    bottom: 1.5rem;   /* hoehe vom footer */
-    left: 0;
-    width: 100vw;
-    overflow-y: auto;   /* scrollt, wenn Inhalt nicht reinpasst */
+
+.background-image{
+    object-fit: cover; /* fuellt aus mit gleichen seitenverhaeltnis */
 }

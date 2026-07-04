@@ -1,18 +1,18 @@
 <main class="container-fluid">
-    <section class="pt-3 pb-5 text-center mx-auto" style="width: 40vw">
-    
-        <img src="Logo_transparent.png" class="img-fluid w-50" alt="logo"/>
-        
-        <h4 class="p-2">Flavour text!! </h4>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem consectetur nostrum sint nemo, dolores, numquam
-        assumenda, dolorum incidunt nobis temporibus vitae quo neque. Doloribus enim delectus impedit quibusdam,
-        voluptas sit.
-        </p>
+    <section class="my-4 text-center mx-auto" style="width: 35vw">
+        <img src="Logo-transparent-cropped.png" class="img-fluid w-50  mb-3" alt="logo"/>
+        <div class="m-5">
+            <h4>Flavour text!! </h4>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem consectetur nostrum sint nemo, dolores, numquam
+            assumenda, dolorum incidunt nobis temporibus vitae quo neque. Doloribus enim delectus impedit quibusdam,
+            voluptas sit.
+            </p>
+        </div>
     </section>
 
     <!--hier mischung aus bootstrap design mit angular formField function zur anbindung -->
-    <form class="text-center mx-auto" style="width: 20vw" (submit)="onSubmit($event)">
-        <div class="form-floating mb-3 shadow">
+    <form class="text-center mx-auto" style="width: 15vw" (submit)="onSubmit($event)">
+        <div class="form-floating my-5 shadow">
             <input type="text" [formField]="loginForm.username" class="form-control" id="floatingUsername"
                 placeholder="Username">
             <label for="floatingUsername">Username</label>
@@ -25,7 +25,7 @@
             </div>
         }
 
-        <div class="form-floating mb-3 shadow">
+        <div class="form-floating my-5 shadow">
             <input type="password" [formField]="loginForm.password" class="form-control" id="floatingPassword"
                 placeholder="Passwort">
             <label for="floatingPassword">Passwort</label>
@@ -38,7 +38,7 @@
             </div>
         }
 
-        <button type="submit" class="btn px-4">Login</button>
+        <button type="submit" class="btn px-4 mb-3">Login</button>
     </form>
 
 </main>

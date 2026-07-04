@@ -1,0 +1,8 @@
+main{
+    position: fixed;
+    top: 4.5rem;      /* hoehe vom header */
+    bottom: 1.5rem;   /* hoehe vom footer */
+    left: 0;
+    width: 100vw;
+    overflow-y: auto;   /* scrollt, wenn Inhalt nicht reinpasst */
+}
