@@ -10,6 +10,8 @@ export class Auth {
         this.isAuthenticated.set(true);
     }
 
-    // falls ich logout button mache dann hier logout(){ set(false)}
+    logout(){
+        this.isAuthenticated.set(false);
+    }
 
 }

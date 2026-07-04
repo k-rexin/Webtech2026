@@ -1,0 +1,7 @@
+nav {
+    position: fixed;
+    top: 6.5rem;
+    left: 0;
+    width: 100vw;
+    background-color: rgb(from var(--light-purple) r g b / 75%);
+}

@@ -7,20 +7,27 @@ header{
     top:0;
     left:0;
     width: 100vw;
+    height: 6.5rem;
     text-align: center;
-    color: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    /*background-color: rgb(from var(--light-purple) r g b / 50%);*/
    
 }
 
-h2{
-    margin-bottom: 0;
-    font-weight:600;
+.logo{
+    height: 6.5rem;
 }
 
-h5{
-    font-weight: 400;
-    display: inline-block;
-    border-style:solid;
-    border-width: 0.25rem;
-    border-color: rgb(from var(--light-purple) r g b / 75%);
+button {
+    border-color: var(--dark);
+    border-radius: 0px;
+    color: var(--dark);
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: rgb(from var(--grey) r g b / 50%);
+    border-color: var(--dark);
 }

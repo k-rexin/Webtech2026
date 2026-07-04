@@ -24,8 +24,8 @@ export class Login {
   });
 
   loginForm = form(this.loginModel, (schemaPath) => {
-    required(schemaPath.username, {message: 'Usernamen eingeben'});
-    required(schemaPath.password, {message: 'Passwort eingeben'});
+    required(schemaPath.username, { message: 'Usernamen eingeben' });
+    required(schemaPath.password, { message: 'Passwort eingeben' });
   });
 
   onSubmit(event: Event) {
@@ -36,7 +36,7 @@ export class Login {
     //auth.Service.login(credentials); ??
     this.auth.login();
     this.router.navigate(['/profil']); // route zum profil (ist ein bsp. auf angulars webseite zu dependency injection)
-    
+
   }
 
 }

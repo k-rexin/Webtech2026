@@ -1,8 +1,24 @@
 main{
     position: fixed;
-    top: 4.5rem;      /* hoehe vom header */
+    top: 10rem;      /* hoehe vom header */
     bottom: 1.5rem;   /* hoehe vom footer */
     left: 0;
     width: 100vw;
     overflow-y: auto;   /* scrollt, wenn Inhalt nicht reinpasst */
+}
+
+div{
+    position: fixed;
+    top: 10.5rem;
+    bottom: 2rem; 
+    left: 5rem;
+    right: 5rem;
+    background-color: rgb(from var(--light-blue) r g b / 75%);
+}
+h5{
+    font-weight: 400;
+    display: inline-block;
+    border-style:solid;
+    border-width: 0.25rem;
+    border-color: rgb(from var(--light-purple) r g b / 75%);
 }
