@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { form, required, FormField } from '@angular/forms/signals';
-import { NgOptimizedImage } from "@angular/common";
+import { Router } from '@angular/router';
+import { Auth } from '../shared/auth';
 
 interface LoginData {
   username: string;
@@ -9,11 +10,13 @@ interface LoginData {
 
 @Component({
   selector: 'app-login',
-  imports: [FormField, NgOptimizedImage],
+  imports: [FormField],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
+  private router = inject(Router); // angulars rouiter service wird hier aufgerufen umd zu einer anderen route zu navigieren
+  private auth = inject(Auth);
 
   loginModel = signal<LoginData>({
     username: '',
@@ -31,6 +34,9 @@ export class Login {
     const credentials = this.loginModel();
     console.log('Einloggen mit: ', credentials);
     //auth.Service.login(credentials); ??
+    this.auth.login();
+    this.router.navigate(['/profil']); // route zum profil (ist ein bsp. auf angulars webseite zu dependency injection)
+    
   }
 
 }
