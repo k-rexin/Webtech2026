@@ -1,0 +1,11 @@
+
+.tkSchublade-bild {
+    width: 100%; /* passt sich der Breite von main/dem Elternelement an */
+    height: auto;
+    display: block; /* verhindert unerwünschten Leerraum unter dem Bild (Inline-Element-Eigenheit) */
+}
+.tkTruhe-bild {
+    width: 100%; /* passt sich der Breite von main/dem Elternelement an */
+    height: auto;
+    display: block; /* verhindert unerwünschten Leerraum unter dem Bild (Inline-Element-Eigenheit) */
+}

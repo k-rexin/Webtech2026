@@ -4,14 +4,16 @@ main{
     bottom: 1.5rem;   /* hoehe vom footer */
     left: 0;
     width: 100vw;
-    overflow-y: auto;   /* scrollt, wenn Inhalt nicht reinpasst */
+    
 }
 
 div{
     position: fixed;
     top: 11rem;
     bottom: 2rem; 
-    left: 5rem;
-    right: 5rem;
+    left: 3rem;
+    right: 3rem;
     background-color: rgb(from var(--light-blue) r g b / 75%);
+    overflow-y: auto;   /* scrollt, wenn Inhalt nicht reinpasst */
+    overflow-x: hidden; /* kein horizontales scrollen */ 
 }

@@ -1,0 +1,22 @@
+<p>geraete-inhalt works!</p>
+
+@if(geraet(); as g) { <!--prueft ob ein geraet gefunden wurde und merkt sich namen als g-->
+    <div class="geraet-container">
+        <h3>{{ g.name }}</h3>
+
+        @if(g.geraetTyp === 'truhe'){
+            <div class="bg-truhe">
+                <img src="tiefkühltruhe.png" alt="tiefkühltruhe" class="tkTruhe-bild">
+            </div>
+        }
+
+        @if(g.geraetTyp === 'schrank') {
+            <div class="schubladen-stapel">
+            @for (schublade of schubladenArray(); track $index) {
+                <img src="tiefkühlschublade.png" alt="tiefkühlschublade" class="tkSchublade-bild">
+            }
+            </div>
+        }
+
+    </div>
+}

@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
+import { GeraeteService } from '../../shared/geraete-service';
 
 interface GeraetData {
   name: string;
@@ -14,10 +15,12 @@ interface GeraetData {
   styleUrl: './profil-home.css',
 })
 export class ProfilHome {
+  private geraeteService = inject(GeraeteService);
 
   //hier noch username aus backend abfragen ??
 
   isModalOpen = signal(false);
+
   openModal() {
     this.isModalOpen.set(true);
   }
@@ -53,7 +56,7 @@ export class ProfilHome {
     event.preventDefault(); // is standard bei event um altes schlechtes html verhalten zu preventen
     const daten = this.geraet();
     console.log('Gerät gespeichert:', daten);
-    // hier später: Daten irgendwo speichern/weiterverarbeiten !!
+    this.geraeteService.addGeraet(daten);  // fuegt daten dem service hinzu
     this.resetForm(); //leer das formular nach dem speichern der daten und schliesst dann erst
     this.closeModal();
   }
