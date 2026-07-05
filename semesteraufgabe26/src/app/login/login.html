@@ -12,7 +12,7 @@
     </section>
 
     <!--hier mischung aus bootstrap design mit angular formField function zur anbindung -->
-    <form class="text-center mx-auto" style="width: 15vw" (submit)="onSubmit($event)">
+    <form class="text-center mx-auto" style="width: 15vw" (submit)="einloggen($event)">
         <div class="form-floating mt-4 shadow">
             <input type="text" [formField]="loginForm.username" class="form-control" id="floatingUsername"
                 placeholder="Username">

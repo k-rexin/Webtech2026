@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { form, required, FormField } from '@angular/forms/signals';
+import { form, FormField, required, } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 import { Auth } from '../shared/auth';
 
@@ -10,7 +10,7 @@ interface LoginData {
 
 @Component({
   selector: 'app-login',
-  imports: [FormField],
+  imports: [FormField], // zur anbindung von inputfeldern/ formularen
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -23,12 +23,12 @@ export class Login {
     password: '',
   });
 
-  loginForm = form(this.loginModel, (schemaPath) => {
+  loginForm = form(this.loginModel, (schemaPath) => { //hier wird loginForm durch formfield ein objekt das fuer jedes inputfeld ein .unterobjekt erstellt
     required(schemaPath.username, { message: 'Usernamen eingeben' });
     required(schemaPath.password, { message: 'Passwort eingeben' });
   });
 
-  onSubmit(event: Event) {
+  einloggen(event: Event) { // event um aus ausgabe auf die konsole zu haben
     event.preventDefault();
     // hier login logik
     const credentials = this.loginModel();

@@ -12,7 +12,7 @@ export class Header {
 private router = inject(Router); // angulars rouiter service wird hier aufgerufen umd zu einer anderen route zu navigieren
   private auth = inject(Auth);
 
-  onClick() {
+  ausloggen() {
     this.auth.logout();
     this.router.navigate(['/']);
   }
