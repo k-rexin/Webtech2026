@@ -34,30 +34,36 @@ export class ProfilHome {
     anzahlSchubladen: '',
   });
 
-  geraetForm = form(this.geraet, (schemaPath) => {
+  geraetForm = form(this.geraet, (schemaPath) => { //zum checken ob form eingehalten wird, wenn nicht error.message
     required(schemaPath.name, { message: 'Gerätenamen eingeben' });
     required(schemaPath.geraetTyp, { message: 'Bitte einen Gerätetyp auswählen' });
   });
 
-  resetForm() {
-    this.geraet.set({
-      name: '',
-      geraetTyp: '',
-      anzahlSchubladen: '',
-    });
-  }
+  submitted = signal(false); 
 
-  cancelModal() { // leer das formular vor dem schliesen
-    this.resetForm();
-    this.closeModal();
-  }
-
-  submitGeraet(event: Event) {
+  submitGeraet(event: Event) { // "Speichern"
     event.preventDefault(); // is standard bei event um altes schlechtes html verhalten zu preventen
+    this.submitted.set(true);
+    if(this.geraetForm().invalid()) {return;} // wenn formular nicht richtig ausgefuellt dann nciht speichern
+
     const daten = this.geraet();
     console.log('Gerät gespeichert:', daten);
     this.geraeteService.addGeraet(daten);  // fuegt daten dem service hinzu
     this.resetForm(); //leer das formular nach dem speichern der daten und schliesst dann erst
     this.closeModal();
+  }
+
+  cancelModal() { // leert das formular vor dem schliessen "Abbrechen"
+    this.resetForm();
+    this.closeModal();
+  }
+
+   resetForm() {
+    this.geraet.set({
+      name: '',
+      geraetTyp: '',
+      anzahlSchubladen: '',
+    });
+    this.submitted.set(false); //zuruecksetzen 
   }
 }

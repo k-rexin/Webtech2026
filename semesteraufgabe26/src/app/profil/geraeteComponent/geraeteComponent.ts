@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { GeraeteService } from '../../shared/geraete-service';
 
 @Component({
-  selector: 'app-geraete-inhalt',
+  selector: 'app-geraeteComponent',
   imports: [],
-  templateUrl: './geraete-inhalt.html',
-  styleUrl: './geraete-inhalt.css',
+  templateUrl: './geraeteComponent.html',
+  styleUrl: './geraeteComponent.css',
 })
-export class GeraeteInhalt {
+export class GeraeteComponent {
   private route = inject(ActivatedRoute);
   private geraeteService = inject(GeraeteService);
   private id = this.route.snapshot.paramMap.get('id');

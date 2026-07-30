@@ -1,8 +1,8 @@
-<p>geraete-inhalt works!</p>
+<p>GeraeteComponent works!</p>
 
 @if(geraet(); as g) { <!--prueft ob ein geraet gefunden wurde und merkt sich namen als g-->
     <div class="geraet-container">
-        <h3>{{ g.name }}</h3>
+        <h4>{{ g.name }}</h4>
 
         @if(g.geraetTyp === 'truhe'){
             <div class="bg-truhe">

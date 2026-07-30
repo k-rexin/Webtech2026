@@ -23,6 +23,7 @@ export class Login {
     password: '',
   });
 
+// schemaPath beschreibt Pfad zu bestimmten Feld in Datenstruktur, spiegelt Struktur des Modells wider, für fehlerfreie/typsichere Validierungen & Bindungen
   loginForm = form(this.loginModel, (schemaPath) => { //hier wird loginForm durch formfield ein objekt das fuer jedes inputfeld ein .unterobjekt erstellt
     required(schemaPath.username, { message: 'Usernamen eingeben' });
     required(schemaPath.password, { message: 'Passwort eingeben' });

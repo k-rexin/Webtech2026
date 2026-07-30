@@ -2,6 +2,10 @@ div {
     color: var(--dark);
 }
 
+.modal{
+ display: block;
+}
+
 .modal-content {
   border-radius: 1rem;
   border: none;
@@ -30,6 +34,11 @@ div {
 
 .modal-body{
     text-align: left;
+}
+
+.error-list{
+  font-size: small;
+  text-align: center;
 }
 
 button:hover{

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeraeteInhalt } from './geraete-inhalt';
+import { GeraeteComponent } from './geraeteComponent';
 
-describe('GeraeteInhalt', () => {
-  let component: GeraeteInhalt;
-  let fixture: ComponentFixture<GeraeteInhalt>;
+describe('GeraeteComponent', () => {
+  let component: GeraeteComponent;
+  let fixture: ComponentFixture<GeraeteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GeraeteInhalt],
+      imports: [GeraeteComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GeraeteInhalt);
+    fixture = TestBed.createComponent(GeraeteComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
