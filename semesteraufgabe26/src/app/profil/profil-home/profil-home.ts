@@ -19,7 +19,7 @@ export class ProfilHome {
 
   //hier noch username aus backend abfragen ??
 
-  isModalOpen = signal(false);
+  isModalOpen = signal(false); //signals informieren alle beteiligten komponenten sofort bei aenderung des werts
 
   openModal() {
     this.isModalOpen.set(true);

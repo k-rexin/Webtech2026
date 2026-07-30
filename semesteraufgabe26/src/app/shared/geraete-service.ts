@@ -7,7 +7,10 @@ export interface Geraet {
   anzahlSchubladen: string;
 }
 
-@Injectable({providedIn: 'root'}) // durch root kann der service von allen komponenten innerhalb root genutz werden
+@Injectable({
+  providedIn: 'root'
+}) // durch root kann der service von allen komponenten innerhalb root genutz werden
+
 export class GeraeteService {
  geraete = signal<Geraet[]>([]); // ist signal mit array-liste stat einzelnem objekt fuer alle angelegten geraete
 
