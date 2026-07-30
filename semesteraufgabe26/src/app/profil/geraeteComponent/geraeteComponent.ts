@@ -1,11 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GeraeteService } from '../../shared/geraete-service';
-import { GeraeteTable } from './geraete-table/geraete-table';
 
 @Component({
   selector: 'app-geraeteComponent',
-  imports: [GeraeteTable],
+  imports: [],
   templateUrl: './geraeteComponent.html',
   styleUrl: './geraeteComponent.css',
 })
