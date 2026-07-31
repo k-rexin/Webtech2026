@@ -1,16 +1,18 @@
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GeraeteService } from '../../shared/geraete-service';
+import { GeraeteTable } from './geraete-table/geraete-table';
 
 @Component({
-  selector: 'app-geraeteComponent',
-  imports: [],
-  templateUrl: './geraeteComponent.html',
-  styleUrl: './geraeteComponent.css',
+  selector: 'app-geraete-component',
+  imports: [GeraeteTable],
+  templateUrl: './geraete-component.html',
+  styleUrl: './geraete-component.css',
 })
 export class GeraeteComponent {
   private route = inject(ActivatedRoute);
   private geraeteService = inject(GeraeteService);
+  
   private id = this.route.snapshot.paramMap.get('id');
   //liest :id aus dr aktuellen url ab
 

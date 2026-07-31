@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeraeteComponent } from './geraeteComponent';
+import { GeraeteComponent } from './geraete-component';
 
 describe('GeraeteComponent', () => {
   let component: GeraeteComponent;

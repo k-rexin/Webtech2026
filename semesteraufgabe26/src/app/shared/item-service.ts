@@ -9,7 +9,9 @@ export interface Item {
     ort: string;
 }
 
-@Injectable() // brauche den service damit item daten 
+@Injectable({
+  providedIn: 'root'
+}) 
 export class ItemService {
     private allItems = signal<Record<string,Item[]>>({}); // speichert fuer jede tablle ihre eigene Liste von Items
     //  pro tabelle ein Array damit sie sich bei mehreren Schubladen nicht ueberschreiben

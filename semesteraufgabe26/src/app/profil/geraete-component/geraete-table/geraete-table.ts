@@ -1,8 +1,8 @@
 import { Component, computed, inject, input, signal } from '@angular/core';
-import { ItemService} from '../../../shared/item-service';
+import { ItemService, Item} from '../../../shared/item-service';
 import { TitleCasePipe  } from '@angular/common';
 import { FormField, form, required } from '@angular/forms/signals';
-import { CdkDropList, CdkDrag, CdkDragDrop, transferArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDropList, CdkDrag, CdkDragDrop, CdkDropListGroup, moveItemInArray } from '@angular/cdk/drag-drop';
 
 type Position = 'links' | 'mitte' | 'rechts';
 
@@ -15,7 +15,7 @@ interface ItemFormData {
 
 @Component({
   selector: 'app-geraete-table',
-  imports: [FormField, TitleCasePipe ],
+  imports: [FormField, TitleCasePipe, CdkDropList, CdkDrag, CdkDropListGroup],
   templateUrl: './geraete-table.html',
   styleUrl: './geraete-table.css',
 })
@@ -31,10 +31,44 @@ export class GeraeteTable {
 
   positionen: Position[] = ['links', 'mitte', 'rechts'];
 
- modalOpenPosition = signal<Position | null>(null); //merkt sich fuer welche position modal offen ist (fuer Ort eintrag) (null = geschlossen)
-submitted = signal(false);
+  itemOnPosition(position: Position) { //gibt items fuer eine bestimmte Position/ort wieder
+    return computed(() => 
+    this.items().filter(i => i.ort.endsWith(position))
+    ); 
+  }
 
-itemModel = signal<ItemFormData>({
+  drop(event: CdkDragDrop<Item[]>) {
+    const allItems = [...this.items()];
+
+    //innerhalb selber position verschoben
+    if(event.previousContainer === event.container) //sind funktionen von cdk, aus welchem container kommt item, in welchen container geht es
+      { 
+      const positionItems = [...event.container.data];
+      moveItemInArray(positionItems, event.previousIndex, event.currentIndex);
+      // neue reihenfolge innerhalb position in gesamtliste einbauen
+      const otherItems = allItems.filter(i => !positionItems.some(p => p.id === i.id));
+      const updated = [...otherItems, ...positionItems];
+
+      this.itemService.updateItems(this.tableId(), updated);
+      return;
+    }
+
+    //item in andere positon geschoben
+    const movedItem = event.previousContainer.data[event.previousIndex]; //index auch von cdk 
+    const newPosition = event.container.id as Position; // id sind positionen zum direkten ablesen wo item ist
+    const newOrt = `${this.tableId()} ${newPosition}`; 
+
+    const updated = allItems.map(i =>
+      i.id === movedItem.id ? { ...i, ort: newOrt } : i
+    );
+
+    this.itemService.updateItems(this.tableId(), updated);
+  }
+
+  modalOpenPosition = signal<Position | null>(null); //merkt sich fuer welche position modal offen ist (fuer Ort eintrag) (null = geschlossen)
+  submitted = signal(false);
+
+  itemModel = signal<ItemFormData>({
     name: '',
     beschreibung: '',
     anzahl: '',

@@ -3,7 +3,7 @@ import { Login } from './login/login';
 import { Profil } from './profil/profil';
 import { authguardGuard } from './shared/authguard-guard';
 import { ProfilHome } from './profil/profil-home/profil-home';
-import { GeraeteComponent } from './profil/geraeteComponent/geraeteComponent';
+import { GeraeteComponent } from './profil/geraete-component/geraete-component';
 
 export const routes: Routes = [
     { path: "", component: Login, pathMatch: 'full' }, // muss passen und ist nicht nur praefix einer laengeren route
