@@ -1,6 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { GeraeteService } from '../../shared/geraete-service';
+import { ProfilTable } from "./profil-table/profil-table";
 
 interface GeraetData {
   name: string;
@@ -10,12 +11,13 @@ interface GeraetData {
 
 @Component({
   selector: 'app-profil-home',
-  imports: [FormField],
+  imports: [FormField, ProfilTable],
   templateUrl: './profil-home.html',
   styleUrl: './profil-home.css',
 })
 export class ProfilHome {
   private geraeteService = inject(GeraeteService);
+  
 
   //hier noch username aus backend abfragen ??
 
@@ -66,4 +68,5 @@ export class ProfilHome {
     });
     this.submitted.set(false); //zuruecksetzen 
   }
+
 }

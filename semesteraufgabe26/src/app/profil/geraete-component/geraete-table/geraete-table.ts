@@ -8,7 +8,7 @@ type Position = 'links' | 'mitte' | 'rechts';
 
 @Component({
   selector: 'app-geraete-table',
-  imports: [ItemModal, TitleCasePipe, CdkDropList, CdkDrag, CdkDragHandle, CdkDropListGroup],
+  imports: [TitleCasePipe, CdkDropList, CdkDrag, CdkDragHandle, CdkDropListGroup, ItemModal],
   templateUrl: './geraete-table.html',
   styleUrl: './geraete-table.css',
 })

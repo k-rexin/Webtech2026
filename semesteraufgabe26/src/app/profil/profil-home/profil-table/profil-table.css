@@ -1,0 +1,23 @@
+:host ::ng-deep tbody {
+    --bs-table-bg: transparent;
+    background-color: rgb(from var(--purple) r g b / 60%);
+    --bs-table-striped-bg: rgb(from var(--light-purple) r g b / 60%);
+    --bs-table-hover-bg: rgb(from var(--grey) r g b / 60%);
+}
+
+:host ::ng-deep th {
+    background-color: rgb(from var(--purple) r g b / 75%);
+}
+
+:host ::ng-deep .table> :not(caption)>*>* {
+    border: none;
+}
+
+div {
+    color: var(--dark);
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}

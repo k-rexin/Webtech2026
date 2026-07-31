@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Beschreibung</th>
+                <th scope="col">Anzahl</th>
+                <th scope="col">MHD</th>
+                <th scope="col">Ort</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of allItems(); track item.name + item.ort) {
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.beschreibung }}</td>
+                <td>{{ item.anzahl }}</td>
+                <td>{{ item.mhd }}</td>
+                <td>{{ item.ort }}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
