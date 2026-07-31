@@ -1,55 +1,35 @@
 :host ::ng-deep tbody {
-  --bs-table-bg: transparent;
-  background-color: transparent;
+    --bs-table-bg: transparent;
+    background-color: transparent;
 }
 
-:host ::ng-deep th{
-   background-color: rgb(from var(--light-purple) r g b / 50%);
+:host ::ng-deep th {
+    background-color: rgb(from var(--purple) r g b / 75%);
+}
+
+:host ::ng-deep .table> :not(caption)>*>* {
+    border: none;
 }
 
 div {
     color: var(--dark);
-    
+
 }
+
 table {
+    font-size: x-large;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.bi {
     font-size: x-large;
 }
 
-.modal{
- display: block;
+.item {
+    background-color: rgb(from var(--purple) r g b / 50%);
 }
 
-.modal-content {
-  border-radius: 1rem;
-  border: none;
-  background-color: var(--light-purple);
-}
-
-.modal-header {
-  border-bottom: none;
-}
-
-.modal-title {
-  color: var(--purple);
-}
-
-.modalbutton{
-    background-color: var(--light-blue);
-    border-color: var(--purple);
-    border-width: 5px;
-    border-style: double;
-    font-style: italic;
-    font-weight: 500;
-}
-.modalbutton:hover{
-    background-color: rgb(from var(--grey) r g b / 25%);
-}
-
-.modal-body{
-    text-align: left;
-}
-
-button:hover{
-  text-decoration: underline;
-  font-weight: 500;
+.editButtons {
+    align-items: end;
 }

@@ -1,48 +1,41 @@
 import { Component, computed, inject, input, signal } from '@angular/core';
-import { ItemService, Item} from '../../../shared/item-service';
-import { TitleCasePipe  } from '@angular/common';
-import { FormField, form, required } from '@angular/forms/signals';
-import { CdkDropList, CdkDrag, CdkDragDrop, CdkDropListGroup, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ItemService, Item, ItemFormData } from '../../../shared/item-service';
+import { TitleCasePipe } from '@angular/common';
+import { CdkDropList, CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropListGroup, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ItemModal } from '../item-modal/item-modal';
 
 type Position = 'links' | 'mitte' | 'rechts';
 
-interface ItemFormData {
-  name: string;
-  beschreibung: string;
-  anzahl: string;
-  mhd: string;
-}
-
 @Component({
   selector: 'app-geraete-table',
-  imports: [FormField, TitleCasePipe, CdkDropList, CdkDrag, CdkDropListGroup],
+  imports: [ItemModal, TitleCasePipe, CdkDropList, CdkDrag, CdkDragHandle, CdkDropListGroup],
   templateUrl: './geraete-table.html',
   styleUrl: './geraete-table.css',
 })
 export class GeraeteTable {
   private itemService = inject(ItemService);
 
-   // id der tabelle von geraeteComponent uebergeben
+  // id der tabelle von geraeteComponent uebergeben
   tableId = input.required<string>();
 
   // liest passende items aus dem service aus
-  items = computed(() => this.itemService.getItems(this.tableId())); 
+  items = computed(() => this.itemService.getItems(this.tableId()));
   // computed berechnet sich automatisch bei aenderung von tableId oder daten im service
 
   positionen: Position[] = ['links', 'mitte', 'rechts'];
 
   itemOnPosition(position: Position) { //gibt items fuer eine bestimmte Position/ort wieder
-    return computed(() => 
-    this.items().filter(i => i.ort.endsWith(position))
-    ); 
+    return computed(() =>
+      this.items().filter(i => i.ort.endsWith(position))
+    );
   }
 
   drop(event: CdkDragDrop<Item[]>) {
     const allItems = [...this.items()];
 
     //innerhalb selber position verschoben
-    if(event.previousContainer === event.container) //sind funktionen von cdk, aus welchem container kommt item, in welchen container geht es
-      { 
+    if (event.previousContainer === event.container) //sind funktionen von cdk, aus welchem container kommt item, in welchen container geht es
+    {
       const positionItems = [...event.container.data];
       moveItemInArray(positionItems, event.previousIndex, event.currentIndex);
       // neue reihenfolge innerhalb position in gesamtliste einbauen
@@ -56,7 +49,7 @@ export class GeraeteTable {
     //item in andere positon geschoben
     const movedItem = event.previousContainer.data[event.previousIndex]; //index auch von cdk 
     const newPosition = event.container.id as Position; // id sind positionen zum direkten ablesen wo item ist
-    const newOrt = `${this.tableId()} ${newPosition}`; 
+    const newOrt = `${this.tableId()} ${newPosition}`;
 
     const updated = allItems.map(i =>
       i.id === movedItem.id ? { ...i, ort: newOrt } : i
@@ -65,50 +58,59 @@ export class GeraeteTable {
     this.itemService.updateItems(this.tableId(), updated);
   }
 
+  deleteItem(item: Item) {
+    const alleItems = this.itemService.getItems(this.tableId());
+    const gefiltert = alleItems.filter(i => i.id !== item.id);
+    this.itemService.updateItems(this.tableId(), gefiltert);
+  }
+
   modalOpenPosition = signal<Position | null>(null); //merkt sich fuer welche position modal offen ist (fuer Ort eintrag) (null = geschlossen)
-  submitted = signal(false);
-
-  itemModel = signal<ItemFormData>({
-    name: '',
-    beschreibung: '',
-    anzahl: '',
-    mhd: '',
-  });
-
-  itemForm = form(this.itemModel, (schemaPath) => {
-    required(schemaPath.name, { message: 'Namen eingeben '});
-  });
+  editingItemId = signal<string | null>(null);
+  filledInData = signal<ItemFormData | null>(null); // wird an modal weitergeleitet
 
   openModal(position: Position) {
+    this.editingItemId.set(null);
+    this.filledInData.set(null);
     this.modalOpenPosition.set(position);
   }
 
-  resetForm() {
-    this.itemModel.set({ name: '', beschreibung: '', anzahl: '', mhd: '' });
-    this.submitted.set(false);
+  editItem(item: Item) {
+    this.editingItemId.set(item.id);
+    this.filledInData.set({
+      name: item.name,
+      beschreibung: item.beschreibung,
+      anzahl: item.anzahl,
+      mhd: item.mhd,
+    });
+    // Position für das Modal aus dem vorhandenen ort ableiten
+    const position = this.positionen.find(p => item.ort.endsWith(p));
+    this.modalOpenPosition.set(position ?? null);
   }
 
-  cancelModal() {
-    this.resetForm();
+  onModalSaved(data: ItemFormData) { // reagiert auf saved-output von modal
+    const position = this.modalOpenPosition();
+    if (!position) return;
+
+    const ort = `${this.tableId()} ${position}`;
+    const editId = this.editingItemId();
+
+    if (editId) {
+      const allItems = this.itemService.getItems(this.tableId());
+      const updated = allItems.map(i =>
+        i.id === editId ? { ...i, ...data, ort } : i
+      );
+      this.itemService.updateItems(this.tableId(), updated);
+    } else {
+      this.itemService.addItem(this.tableId(), { ...data, ort });
+    }
+
     this.modalOpenPosition.set(null);
+    this.editingItemId.set(null);
   }
 
-  submitItem(event: Event) {
-    event.preventDefault();
-    this.submitted.set(true);
-
-    if(this.itemForm().invalid()) {return;}
-
-     const position = this.modalOpenPosition();
-     if(!position) {return};
-
-     const data = this.itemModel();
-     const ort = `${this.tableId()} ${position}`; //ort muss nicht extra eingegeben werden von user sonder setzt sich hier automatisch zusammen
-
-    this.itemService.addItem(this.tableId(), { ...data, ort });
-    this.resetForm();
+  onModalCancelled() { //reagiert auf cancelled-output von modal
     this.modalOpenPosition.set(null);
+    this.editingItemId.set(null);
   }
- 
 
 }

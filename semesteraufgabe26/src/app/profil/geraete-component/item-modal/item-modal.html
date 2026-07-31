@@ -1,0 +1,43 @@
+<!-- item-modal.html -->
+<div class="modal" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ titel() }}</h5>
+      </div>
+
+      <form (submit)="submitItem($event)" novalidate>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label">Name</label>
+            <input type="text" [formField]="itemForm.name" class="form-control">
+          </div>
+          @if (submitted() && itemForm.name().invalid()) {
+            <div class="text-danger small text-center">
+              @for (error of itemForm.name().errors(); track error) {
+                <p class="mb-0">{{ error.message }}</p>
+              }
+            </div>
+          }
+          <div class="mb-2">
+            <label class="form-label">Beschreibung</label>
+            <input type="text" [formField]="itemForm.beschreibung" class="form-control">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Anzahl</label>
+            <input type="text" [formField]="itemForm.anzahl" class="form-control">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">MHD</label>
+            <input type="date" [formField]="itemForm.mhd" class="form-control">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn" (click)="cancel()">Abbrechen</button>
+          <button type="submit" class="btn">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

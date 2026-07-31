@@ -1,72 +1,55 @@
-<table class="table text-center" cdkDropListGroup>
+<table class="table" cdkDropListGroup>
   <thead>
     <tr>
       @for (position of positionen; track position) {
-        <th scope="col">
-          <div class="align-items-center">
-            <span>{{ position | titlecase }}</span> <!--titelcase macht schreibt postionsanbagen automatisch gross-->
-            <button type="button" class="btn btn-sm" (click)="openModal(position)">+</button>
-          </div>
-        </th>
+      <th scope="col">
+        <div class="align-items-center">
+          <span>{{ position | titlecase }}</span> <!--titelcase macht schreibt postionsanbagen automatisch gross-->
+          <button type="button" class="btn btn-sm p-2 border-0 bg-transparent" (click)="openModal(position)">
+            <i class="bi bi-plus-square-dotted"></i>
+          </button>
+        </div>
+      </th>
       }
     </tr>
   </thead>
-  <tbody >
+  <tbody>
     <tr>
-      @for (position of positionen; track position) 
+      @for (position of positionen; track position)
       {
-        <td cdkDropList [id]="position" [cdkDropListData]="itemOnPosition(position)()"
-            (cdkDropListDropped)="drop($event)" style="min-height: 100px;"> <!--jede td jetzt dropzone mit id -->
-          @for (item of itemOnPosition(position)(); track item.id) {
-              <div cdkDrag class="border p-2 m-2 bg-light">{{ item.name }}</div>
-          }
-        </td>
+      <td cdkDropList [id]="position" [cdkDropListData]="itemOnPosition(position)()" (cdkDropListDropped)="drop($event)"
+        style="min-height: 100px;"> <!--jede td jetzt dropzone mit id -->
+        @for (item of itemOnPosition(position)(); track item.id) 
+        {
+        <div class="item m-1 d-flex align-items-center justify-content-between" cdkDrag>
+
+          <div class="d-flex align-items-center">
+            <span cdkDragHandle style="cursor: grab;">⠿</span>
+            <span>{{ item.name }}</span>
+          </div>
+
+          <div>
+            <button type="button" class="btn btn-sm border-0 bg-transparent" (click)="editItem(item)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button type="button" class="btn btn-sm border-0 bg-transparent" (click)="deleteItem(item)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+
+        </div>
+        }
+      </td>
       }
     </tr>
   </tbody>
 </table>
 
-@if (modalOpenPosition(); as position) {
-  <div class="modal" style="display: block;">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Neues Item ({{ position | titlecase }})</h5>
-        </div>
-
-        <form (submit)="submitItem($event)" novalidate>
-          <div class="modal-body">
-            <div class="mb-2">
-              <label class="form-label">Name</label>
-              <input type="text" [formField]="itemForm.name" class="form-control">
-            </div>
-            @if (submitted() && itemForm.name().invalid()) {
-              <div class="text-danger small text-center">
-                @for (error of itemForm.name().errors(); track error) {
-                  <p class="mb-0">{{ error.message }}</p>
-                }
-              </div>
-            }
-            <div class="mb-2">
-              <label class="form-label">Beschreibung</label>
-              <input type="text" [formField]="itemForm.beschreibung" class="form-control">
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Anzahl</label>
-              <input type="text" [formField]="itemForm.anzahl" class="form-control">
-            </div>
-            <div class="mb-2">
-              <label class="form-label">MHD</label>
-              <input type="date" [formField]="itemForm.mhd" class="form-control">
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn" (click)="cancelModal()">Abbrechen</button>
-            <button type="submit" class="btn">Speichern</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+@if (modalOpenPosition(); as position) { <!--reagiert auf output von item-modal, dynamischer titel, erhaelt data -->
+  <app-item-modal
+    [titel]="(editingItemId() ? 'Item bearbeiten' : 'Neues Item') + ' (' + (position | titlecase) + ')'" 
+    [filledInData]="filledInData()"
+    (saved)="onModalSaved($event)" 
+    (cancelled)="onModalCancelled()">
+  </app-item-modal>
 }

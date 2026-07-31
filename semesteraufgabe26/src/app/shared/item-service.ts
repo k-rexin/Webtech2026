@@ -9,6 +9,13 @@ export interface Item {
     ort: string;
 }
 
+export interface ItemFormData {
+  name: string;
+  beschreibung: string;
+  anzahl: string;
+  mhd: string;
+}
+
 @Injectable({
   providedIn: 'root'
 }) 

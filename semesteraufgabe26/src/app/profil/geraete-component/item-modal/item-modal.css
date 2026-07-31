@@ -1,0 +1,40 @@
+
+.modal {
+    display: block;
+}
+
+.modal-content {
+    border-radius: 1rem;
+    border: none;
+    background-color: var(--light-purple);
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-title {
+    color: var(--purple);
+}
+
+.modalbutton {
+    background-color: var(--light-blue);
+    border-color: var(--purple);
+    border-width: 5px;
+    border-style: double;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.modalbutton:hover {
+    background-color: rgb(from var(--grey) r g b / 25%);
+}
+
+.modal-body {
+    text-align: left;
+}
+
+button:hover {
+    text-decoration: underline;
+    font-weight: 500;
+}
