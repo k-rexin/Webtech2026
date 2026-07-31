@@ -1,26 +1,30 @@
-
 @if(geraet(); as g) { <!--prueft ob ein geraet gefunden wurde und merkt sich namen als g-->
-    <div class="geraet-container">
-        <h4>{{ g.name }}</h4>
+<div class="geraet-container text text-center">
+    <h4>{{ g.name }}</h4>
 
-        @if(g.geraetTyp === 'truhe'){
-            <div class="bg-truhe">
-                <img src="tiefkühltruhe.png" alt="tiefkühltruhe" class="tkTruhe-bild">
-            </div>
+    @if(g.geraetTyp === 'truhe'){
+    <div class="tk-wrapper">
+        <img src="tiefkühltruhe.png" alt="tiefkühltruhe" class="tkTruhe-bild">
+        <div class="tabelle-overlay">
             <app-geraete-table [tableId]="g.id"></app-geraete-table>
-        }
-
-        @if(g.geraetTyp === 'schrank') {
-            <div class="schubladen-stapel">
-            @for (schublade of schubladenArray(); track $index) 
-            {
-                <div class="schublade-bereich">
-                <img src="tiefkühlschublade.png" alt="tiefkühlschublade" class="tkSchublade-bild">
-                <app-geraete-table [tableId]="g.id + '-schublade-' + $index"></app-geraete-table>
-                </div>
-            }
-            </div>
-        }
-
+        </div>
     </div>
+
+    }
+
+    @if(g.geraetTyp === 'schrank') {
+    <div class="schubladen-stapel">
+        @for (schublade of schubladenArray(); track $index)
+        {
+        <div class="tk-wrapper">
+            <img src="tiefkühlschublade.png" alt="tiefkühlschublade" class="tkSchublade-bild">
+            <div class="tabelle-overlay">
+            <app-geraete-table [tableId]="g.id + '-schublade-' + $index"></app-geraete-table>
+            </div>
+        </div>
+        }
+    </div>
+    }
+
+</div>
 }

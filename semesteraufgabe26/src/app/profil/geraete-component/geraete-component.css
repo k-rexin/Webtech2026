@@ -1,11 +1,31 @@
-
 .tkSchublade-bild {
-    width: 100%; /* passt sich der Breite von main/dem Elternelement an */
+    width: 100%;
+    /* passt sich der Breite von main/dem Elternelement an */
     height: auto;
-    display: block; /* verhindert unerwünschten Leerraum unter dem Bild (Inline-Element-Eigenheit) */
+    display: block;
+    /* verhindert unerwünschten Leerraum unter dem Bild (Inline-Element-Eigenheit) */
 }
+
 .tkTruhe-bild {
-    width: 100%; /* passt sich der Breite von main/dem Elternelement an */
+    width: 100%;
+    /* passt sich der Breite von main/dem Elternelement an */
     height: auto;
-    display: block; /* verhindert unerwünschten Leerraum unter dem Bild (Inline-Element-Eigenheit) */
+    display: block;
+    /* verhindert unerwünschten Leerraum unter dem Bild (Inline-Element-Eigenheit) */
+}
+
+.tk-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.tabelle-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow-y: auto;
+    max-height: 100%;
 }

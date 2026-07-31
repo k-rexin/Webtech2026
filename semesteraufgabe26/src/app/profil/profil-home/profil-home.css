@@ -1,9 +1,9 @@
 div {
-    color: var(--dark);
+  color: var(--dark);
 }
 
-.modal{
- display: block;
+.modal {
+  display: block;
 }
 
 .modal-content {
@@ -20,28 +20,25 @@ div {
   color: var(--purple);
 }
 
-.modalbutton{
-    background-color: var(--light-blue);
-    border-color: var(--purple);
-    border-width: 5px;
-    border-style: double;
-    font-style: italic;
-    font-weight: 500;
-}
-.modalbutton:hover{
-    background-color: rgb(from var(--grey) r g b / 25%);
+.modalbutton {
+  background-color: var(--light-blue);
+  border-color: var(--purple);
+  border-width: 5px;
+  border-style: double;
+  font-style: italic;
+  font-weight: 500;
 }
 
-.modal-body{
-    text-align: left;
+.modalbutton:hover {
+  background-color: rgb(from var(--grey) r g b / 25%);
 }
 
-.error-list{
-  font-size: small;
-  text-align: center;
+.modal-body {
+  text-align: left;
 }
 
-button:hover{
+
+button:hover {
   text-decoration: underline;
   font-weight: 500;
 }

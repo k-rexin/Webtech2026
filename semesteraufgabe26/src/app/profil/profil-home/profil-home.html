@@ -20,7 +20,7 @@
                                 placeholder="z.B. Keller-Tiefkühltruhe oder TK-Schrank in Küche">
                         </div>
                         @if (submitted() && geraetForm.name().invalid()) {
-                        <div class="error-list">
+                        <div class="text-danger small text-center">
                             @for (error of geraetForm.name().errors(); track error) {
                             <p>{{ error.message }}</p>
                             }
@@ -55,7 +55,7 @@
                         </div>
                         }
                         @if (submitted() && geraetForm.geraetTyp().invalid()) {
-                        <div class="error-list">
+                        <div class="text-danger small text-center">
                             @for (error of geraetForm.geraetTyp().errors(); track error) {
                             <p>{{ error.message }}</p>
                             }
