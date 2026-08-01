@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ItemService } from '../../../shared/item-service';
 import { GeraeteService } from '../../../shared/geraete-service';
 
@@ -56,4 +56,16 @@ private positionReadable(ort: string): string {
     }
     return result;
   })
+
+  searchText = signal(''); // brauchrt durch signal keinen "extra" filter()-aufruf bei jedem tastendruck
+  filteredItems= computed(() => { //computed berechnet items automatisch, wenn es aenderungen am signal gibt (also eingabe in suchfeld)
+    const value = this.searchText().toLowerCase();
+    return this.allItems().filter(item => 
+      item.name.toLowerCase().includes(value) ||
+      item.ort.toLowerCase().includes(value) || 
+      item.beschreibung.toLowerCase().includes(value) ||
+      item.mhd.toLowerCase().includes(value)
+    );
+  });
+
 }

@@ -1,4 +1,10 @@
 <div class="container-fluid">
+
+    <div class="mb-3 d-flex justify-content-center">
+        <input type="text" class="form-control w-25 " placeholder="Suchen..."
+            [value]="searchText()" (input)="searchText.set($any($event.target).value)">
+        <!--input bindet an signal und nicht an ReactiveFormsModule/FormControl-->
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -10,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @for (item of allItems(); track item.name + item.ort) {
+            @for (item of filteredItems(); track item.name + item.ort) { <!--item.name + item.ort als ID ersatz-->
             <tr>
                 <td>{{ item.name }}</td>
                 <td>{{ item.beschreibung }}</td>
