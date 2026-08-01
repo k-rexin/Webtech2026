@@ -1,16 +1,20 @@
 const express = require('express');
 const cors = require('cors');
-const routes = require('./routes');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const userRoutes = require('./routes/users');
+const geraeteRoutes = require('./routes/geraete');
+const itemRoutes = require('./routes/items');
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
 app.use(cors()); // Anfragen definierene, sodass sie im Sinne der SOP trotzdem erlaubt sind 
-app.use('/', routes);
+app.use('/users', userRoutes);
+app.use('/geraete', geraeteRoutes);
+app.use('/items', itemRoutes);
 
 mongoose.connect(process.env.DB_CONNECTION, { dbName: process.env.DATABASE });
 const db = mongoose.connection;
