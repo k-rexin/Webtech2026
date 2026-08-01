@@ -12,7 +12,8 @@ router.get('/geraet/:geraetId', async (req, res) => {
         return;
     }
 
-    const items = await Item.find({ geraetId: req.params.geraetId, userId: userId });
+    const items = await Item.find({ geraetId: req.params.geraetId, userId: userId })
+    .sort({ reihenfolge: 1 }); //aufsteigend nach reihenfolge
     res.send(items);
 });
 
@@ -24,6 +25,13 @@ router.post('/', async (req, res) => {
         res.send({ message: 'Not authorized' });
         return;
     }
+    //zaehlt, wie viele Items schon in dieser Position (Schublade + Ort) liegen
+    const count = await Item.countDocuments({
+        geraetId: req.body.geraetId,
+        schubladeIndex: req.body.schubladeIndex,
+        ort: req.body.ort,
+        userId: userId
+    });
 
     const newItem = new Item({
         name: req.body.name,
@@ -33,10 +41,38 @@ router.post('/', async (req, res) => {
         ort: req.body.ort,
         geraetId: req.body.geraetId,
         schubladeIndex: req.body.schubladeIndex,
+        reihenfolge: count,
         userId: userId
     });
     await newItem.save();
     res.send(newItem);
+});
+
+//UPDATE (patch) daten reihenfolge aktualisieren (fuer drag&drop auch innerhalb einer spalte)
+router.patch('/reorder', async (req, res) => {
+  const userId = getUserIdFromToken(req);
+  if (!userId) {
+    res.status(401);
+    res.send({ message: 'Not authorized' });
+    return;
+  }
+
+  const updates = req.body.updates; // Array von { id, ort, schubladeIndex, reihenfolge }
+
+  try {
+    for (const update of updates) {
+      await Item.updateOne(
+        { _id: update.id, userId: userId },
+        { ort: update.ort, schubladeIndex: update.schubladeIndex, reihenfolge: update.reihenfolge }
+      );
+    }
+    res.status(200);
+    res.send({ message: 'Reihenfolge aktualisiert' });
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+    res.send({ error: 'Fehler beim Aktualisieren der Reihenfolge' });
+  }
 });
 
 //UPDATE (patch) daten eines items aendern - findOne(), updateOne()

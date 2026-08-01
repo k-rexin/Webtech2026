@@ -9,6 +9,7 @@ const schema = new mongoose.Schema({
   ort: String,
   geraetId: mongoose.Schema.Types.ObjectId, // zu welchem geraet gehoert das item
   schubladeIndex: Number, // leer wenn truhe
+  reihenfolge: Number,
   userId: mongoose.Schema.Types.ObjectId // zu welchem profil gehoert das item
 });
 
