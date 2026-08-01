@@ -18,10 +18,9 @@ export class Login {
   private router = inject(Router); // angulars rouiter service wird hier aufgerufen umd zu einer anderen route zu navigieren
   private auth = inject(Auth);
 
-  loginModel = signal<LoginData>({
-    username: '',
-    password: '',
-  });
+  errorMessage = signal<string | null>(null);
+
+  loginModel = signal<LoginData>({ username: '', password: '' });
 
 // schemaPath beschreibt Pfad zu bestimmten Feld in Datenstruktur, spiegelt Struktur des Modells wider, für fehlerfreie/typsichere Validierungen & Bindungen
   loginForm = form(this.loginModel, (schemaPath) => { //hier wird loginForm durch formfield ein objekt das fuer jedes inputfeld ein .unterobjekt erstellt
@@ -29,31 +28,19 @@ export class Login {
     required(schemaPath.password, { message: 'Passwort eingeben' });
   });
 
-  einloggen(event: Event) { // event um aus ausgabe auf die konsole zu haben
+  onSubmit(event: Event) { // event um aus ausgabe auf die konsole zu haben
     event.preventDefault();
     // hier login logik
     const credentials = this.loginModel();
-    console.log('Einloggen mit: ', credentials);
-    //auth.Service.login(credentials); ??
-    this.auth.login();
-    this.router.navigate(['/profil']); // route zum profil (ist ein bsp. auf angulars webseite zu dependency injection)
-
+    this.auth.login(credentials.username, credentials.password).subscribe({
+      next: () => {
+        this.router.navigate(['/profil']);
+      },
+      error: (err) => {
+        console.log('Login-Fehler:', err);
+        this.errorMessage.set('Username oder Passwort falsch');
+      }
+    });
   }
 
 }
-
-/*readonly #auth = inject(AuthService);
-  protected readonly isLoading = signal(false);
-  protected readonly error = signal<string | null>(null);
-
-  protected async login(email: string, password: string) {
-    this.isLoading.set(true);
-    try {
-      await this.#auth.login(email, password);
-      await this.router.navigate([...]);
-    } catch (e) {
-      this.error.set(e.message);
-    }
-    this.isLoading.set(false);
-  }
-    */

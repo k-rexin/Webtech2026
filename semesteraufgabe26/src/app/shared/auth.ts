@@ -1,17 +1,49 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+
+interface AuthUser {
+  id: string;
+  username: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
-    isAuthenticated = signal(false);
+    private http = inject(HttpClient);
+    private baseUrl = 'http://localhost:3000';
 
-    login(){
-        this.isAuthenticated.set(true);
+    user = signal<AuthUser | null>(null);
+    token = signal<string | null>(null);
+
+    isAuthenticated = computed(() => this.token() !== null); // gilt als eingeloggt wenn es token gibt 
+
+    register(username: string, password: string): Observable<any> { // username und password von aufrufender komponente mitgegeben
+        // HttpClient gibt bei post() immer ein observable zurueck , any = strucktur der backend-antwort ist noch nciht klar 
+        return this.http.post(`${this.baseUrl}/users/register`, { username, password });
+        //sendet post-request zusammengebaute URL , username und password werden im body mitgeschcikt
     }
 
-    logout(){
-        this.isAuthenticated.set(false);
-    }
+    login(username: string, password: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/users/login`, { username, password }).pipe( // mit pipe weitere operationen ans observable dran
+      tap((response: any) => {  // tap von RxJS nutzt response um zusaetzlich folgendes auszufuehren
+        this.token.set(response.token); // token und user werden aus backend dem signal uebergeben
+        this.user.set(response.user);
+      })
+    );
+  }
+
+  logout(): void {
+    this.user.set(null);
+    this.token.set(null);
+  }
+
+  getAuthHeaders() { // hilfsfunktion um jedem request den richtigen header (autorisierung-token, username) mitzuschicken
+    return {
+      authorization: this.token() ?? '',
+      username: this.user()?.username ?? ''
+    };
+  }
 
 }

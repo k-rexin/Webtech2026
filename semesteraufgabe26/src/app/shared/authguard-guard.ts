@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Auth } from './auth';
 import { CanActivateFn, Router } from '@angular/router';
 
-export const authguardGuard: CanActivateFn = (route, state) => {
+export const authguardGuard: CanActivateFn = () => {
   return inject(Auth).isAuthenticated() // aus dem script
     ? true
     : inject(Router).navigate(['/']); // wenn auth true dann true wenn false dann zu login
