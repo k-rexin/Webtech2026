@@ -63,7 +63,7 @@ router.patch('/:id', async (req, res) => {
     }
 
     try {
-        const gerat = await Geraet.findOne({ _id: req.params.id, userId: userId });
+        const geraet = await Geraet.findOne({ _id: req.params.id, userId: userId });
         if (!geraet) {
             res.status(404);
             res.send({ error: 'Geraet does not exist!' });

@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { GeraeteService } from '../../shared/geraete-service';
 import { ProfilTable } from "./profil-table/profil-table";
@@ -15,9 +15,9 @@ interface GeraetData {
   templateUrl: './profil-home.html',
   styleUrl: './profil-home.css',
 })
-export class ProfilHome {
+export class ProfilHome implements OnInit {
   private geraeteService = inject(GeraeteService);
-  
+
 
   //hier noch username aus backend abfragen ??
 
@@ -41,18 +41,22 @@ export class ProfilHome {
     required(schemaPath.geraetTyp, { message: 'Bitte einen Gerätetyp auswählen' });
   });
 
-  submitted = signal(false); 
+  submitted = signal(false);
 
   submitGeraet(event: Event) { // "Speichern"
     event.preventDefault(); // is standard bei event um altes schlechtes html verhalten zu preventen
     this.submitted.set(true);
-    if(this.geraetForm().invalid()) {return;} // wenn formular nicht richtig ausgefuellt dann nciht speichern
+    if (this.geraetForm().invalid()) { return; } // wenn formular nicht richtig ausgefuellt dann nciht speichern
 
     const daten = this.geraet();
     console.log('Gerät gespeichert:', daten);
-    this.geraeteService.addGeraet(daten);  // fuegt daten dem service hinzu
-    this.resetForm(); //leer das formular nach dem speichern der daten und schliesst dann erst
-    this.closeModal();
+    this.geraeteService.addGeraet(daten).subscribe({
+      next: () => {
+        this.resetForm();
+        this.closeModal();
+      },
+      error: (err) => console.log('Fehler beim Anlegen:', err)
+    });
   }
 
   cancelModal() { // leert das formular vor dem schliessen "Abbrechen"
@@ -60,13 +64,17 @@ export class ProfilHome {
     this.closeModal();
   }
 
-   resetForm() {
+  resetForm() {
     this.geraet.set({
       name: '',
       geraetTyp: '',
       anzahlSchubladen: '',
     });
     this.submitted.set(false); //zuruecksetzen 
+  }
+
+  ngOnInit(): void {
+    this.geraeteService.loadGeraete();
   }
 
 }
