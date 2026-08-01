@@ -1,5 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 import { GeraeteService } from '../../shared/geraete-service';
 import { GeraeteTable } from './geraete-table/geraete-table';
 
@@ -12,13 +14,13 @@ import { GeraeteTable } from './geraete-table/geraete-table';
 export class GeraeteComponent {
   private route = inject(ActivatedRoute);
   private geraeteService = inject(GeraeteService);
-  
-  private id = this.route.snapshot.paramMap.get('id');
-  //liest :id aus dr aktuellen url ab
+
+  // reagiert automatisch auf aenderungen der :id in der URL
+  private id = toSignal(this.route.paramMap.pipe(map(p => p.get('id'))));
 
   geraet = computed(() =>
-    this.geraeteService.geraete().find(g => g.id === this.id)
-); //computed is signal dass sich automatisch aktualisiert wenn sich geraeteService.geraete()-Liste aendert 
+    this.geraeteService.geraete().find(g => g.id === this.id())
+  ); //computed is signal dass sich automatisch aktualisiert wenn sich geraeteService.geraete()-Liste aendert 
 
   schubladenArray = computed(() => {
     const anzahl = Number(this.geraet()?.anzahlSchubladen ?? 0);

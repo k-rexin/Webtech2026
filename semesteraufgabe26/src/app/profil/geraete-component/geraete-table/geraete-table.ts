@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal, effect } from '@angular/core';
 import { ItemService, Item, ItemFormData } from '../../../shared/item-service';
 import { TitleCasePipe } from '@angular/common';
 import { CdkDropList, CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropListGroup, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -24,44 +24,65 @@ export class GeraeteTable {
 
   positionen: Position[] = ['links', 'mitte', 'rechts'];
 
+  constructor() {// laedt inhalt neu sobald sich tableId aendert
+    effect(() => {
+      this.itemService.loadItems(this.tableId());
+    });
+  }
+
   itemOnPosition(position: Position) { //gibt items fuer eine bestimmte Position/ort wieder
     return computed(() =>
-      this.items().filter(i => i.ort.endsWith(position))
+      this.items()
+        .filter(i => i.ort === position)
+        .sort((a, b) => a.reihenfolge - b.reihenfolge)
     );
   }
 
   drop(event: CdkDragDrop<Item[]>) {
-    const allItems = [...this.items()];
-
-    //innerhalb selber position verschoben
-    if (event.previousContainer === event.container) //sind funktionen von cdk, aus welchem container kommt item, in welchen container geht es
-    {
+    if (event.previousContainer === event.container) {
+      // Innerhalb derselben Position umsortieren
       const positionItems = [...event.container.data];
       moveItemInArray(positionItems, event.previousIndex, event.currentIndex);
-      // neue reihenfolge innerhalb position in gesamtliste einbauen
-      const otherItems = allItems.filter(i => !positionItems.some(p => p.id === i.id));
-      const updated = [...otherItems, ...positionItems];
 
-      this.itemService.updateItems(this.tableId(), updated);
+      // Neue Reihenfolge für ALLE Items dieser Position ans Backend senden
+      const updates = positionItems.map((item, index) => ({
+        id: item.id,
+        ort: item.ort,
+        schubladeIndex: item.schubladeIndex,
+        reihenfolge: index
+      }));
+
+      this.itemService.reorderItems(this.tableId(), updates).subscribe({
+        error: (err) => console.log('Fehler beim Umsortieren:', err)
+      });
       return;
     }
 
-    //item in andere positon geschoben
-    const movedItem = event.previousContainer.data[event.previousIndex]; //index auch von cdk 
-    const newPosition = event.container.id as Position; // id sind positionen zum direkten ablesen wo item ist
-    const newOrt = `${this.tableId()} ${newPosition}`;
+    // Item in andere Position geschoben
+    const movedItem = event.previousContainer.data[event.previousIndex];
+    const newPosition = event.container.id as Position;
+    const zielListe = [...event.container.data];
 
-    const updated = allItems.map(i =>
-      i.id === movedItem.id ? { ...i, ort: newOrt } : i
-    );
+    // Item wird ans Ende der Zielspalte gehängt
+    const updates = [
+      { id: movedItem.id, ort: newPosition, schubladeIndex: movedItem.schubladeIndex, reihenfolge: zielListe.length },
+      ...zielListe.map((item, index) => ({
+        id: item.id,
+        ort: item.ort,
+        schubladeIndex: item.schubladeIndex,
+        reihenfolge: index
+      }))
+    ];
 
-    this.itemService.updateItems(this.tableId(), updated);
+    this.itemService.reorderItems(this.tableId(), updates).subscribe({
+      error: (err) => console.log('Fehler beim Verschieben:', err)
+    });
   }
 
   deleteItem(item: Item) {
-    const alleItems = this.itemService.getItems(this.tableId());
-    const gefiltert = alleItems.filter(i => i.id !== item.id);
-    this.itemService.updateItems(this.tableId(), gefiltert);
+    this.itemService.deleteItem(item.id, this.tableId()).subscribe({
+    error: (err) => console.log('Fehler beim Löschen:', err)
+  });
   }
 
   modalOpenPosition = signal<Position | null>(null); //merkt sich fuer welche position modal offen ist (fuer Ort eintrag) (null = geschlossen)
@@ -83,29 +104,32 @@ export class GeraeteTable {
       mhd: item.mhd,
     });
     // Position für das Modal aus dem vorhandenen ort ableiten
-    const position = this.positionen.find(p => item.ort.endsWith(p));
-    this.modalOpenPosition.set(position ?? null);
+    this.modalOpenPosition.set(item.ort as Position);
   }
 
   onModalSaved(data: ItemFormData) { // reagiert auf saved-output von modal
     const position = this.modalOpenPosition();
     if (!position) return;
 
-    const ort = `${this.tableId()} ${position}`;
     const editId = this.editingItemId();
 
     if (editId) {
-      const allItems = this.itemService.getItems(this.tableId());
-      const updated = allItems.map(i =>
-        i.id === editId ? { ...i, ...data, ort } : i
-      );
-      this.itemService.updateItems(this.tableId(), updated);
+      this.itemService.updateItem(editId, this.tableId(), { ...data, ort: position }).subscribe({
+        next: () => {
+          this.modalOpenPosition.set(null);
+          this.editingItemId.set(null);
+        },
+        error: (err) => console.log('Fehler beim Aktualisieren:', err)
+      });
     } else {
-      this.itemService.addItem(this.tableId(), { ...data, ort });
+      this.itemService.addItem(this.tableId(), { ...data, ort: position }).subscribe({
+        next: () => {
+          this.modalOpenPosition.set(null);
+          this.editingItemId.set(null);
+        },
+        error: (err) => console.log('Fehler beim Anlegen:', err)
+      });
     }
-
-    this.modalOpenPosition.set(null);
-    this.editingItemId.set(null);
   }
 
   onModalCancelled() { //reagiert auf cancelled-output von modal
