@@ -51,4 +51,27 @@ router.post('/login', async (req, res) => {
     res.send({ token: token, user: userWithoutPassword });
 });
 
+
+
+//--------------------------------------NUR FUER ADMIN----------------------------
+//passwort zuruecksetzen falls es vergessen wurde, nur ueber thunder Client benutzbar ( ohne Token nur mit username, neuesPasswort )
+router.post('/reset-password', async (req, res) => {
+  const username = req.body.username;
+  const newPassword = req.body.newPassword;
+
+  const user = await User.findOne({ username: username });
+  if (!user) {
+    res.status(404);
+    res.send({ message: 'User nicht gefunden' });
+    return;
+  }
+
+  const hashPassword = await bcrypt.hash(newPassword, 10);
+  user.password = hashPassword;
+  await user.save();
+
+  res.status(200);
+  res.send({ message: 'Passwort erfolgreich zurückgesetzt' });
+});
+
 module.exports = router;
