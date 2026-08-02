@@ -6,7 +6,7 @@
     <div class="tk-wrapper">
         <img src="tiefkühltruhe.png" alt="tiefkühltruhe" class="tkTruhe-bild">
         <div class="tabelle-overlay">
-            <app-geraete-table [tableId]="g.id"></app-geraete-table>
+            <app-geraete-table [geraetId]="g.id"></app-geraete-table>
         </div>
     </div>
 
@@ -19,7 +19,7 @@
         <div class="tk-wrapper">
             <img src="tiefkühlschublade.png" alt="tiefkühlschublade" class="tkSchublade-bild">
             <div class="tabelle-overlay">
-            <app-geraete-table [tableId]="g.id + '-schublade-' + $index"></app-geraete-table>
+            <app-geraete-table [geraetId]="g.id" [schubladeIndex]="$index"></app-geraete-table>
             </div>
         </div>
         }

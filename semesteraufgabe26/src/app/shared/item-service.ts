@@ -37,14 +37,6 @@ export class ItemService {
         return new HttpHeaders(this.auth.getAuthHeaders());
     }
 
-    private parseTableId(tableId: string): { geraetId: string; schubladeIndex: number | null } {
-        const match = tableId.match(/^(.+)-schublade-(\d+)$/);
-        if (match) {
-            return { geraetId: match[1], schubladeIndex: Number(match[2]) };
-        }
-        return { geraetId: tableId, schubladeIndex: null };
-    }
-
     private buildKey(geraetId: string, schubladeIndex: number | null): string {
         return schubladeIndex !== null ? `${geraetId}-schublade-${schubladeIndex}` : geraetId;
     }
@@ -54,9 +46,7 @@ export class ItemService {
     }
 
     // Laedt ALLE Items eines Geraets (alle Schubladen auf einmal) und verteilt sie in itemsMap
-    loadItems(tableId: string): void {
-        const { geraetId } = this.parseTableId(tableId);
-
+    loadItems(geraetId: string): void {
         this.http.get<any[]>(`${this.baseUrl}/geraet/${geraetId}`, { headers: this.getHeaders() }).subscribe({
             next: (response) => {
                 const mapped: Item[] = response.map(i => ({
@@ -91,30 +81,29 @@ export class ItemService {
         });
     }
 
-    addItem(tableId: string, daten: ItemFormData & { ort: string }): Observable<any> {
-        const { geraetId, schubladeIndex } = this.parseTableId(tableId);
+    addItem(geraetId: string, schubladeIndex: number | null, daten: ItemFormData & { ort: string }): Observable<any> {
         const body = { ...daten, geraetId, schubladeIndex };
 
         return this.http.post(this.baseUrl, body, { headers: this.getHeaders() }).pipe(
-            tap(() => this.loadItems(tableId))
+            tap(() => this.loadItems(geraetId))
         );
     }
 
-    updateItem(id: string, tableId: string, daten: Partial<ItemFormData & { ort: string }>): Observable<any> {
+    updateItem(id: string, geraetId: string, daten: Partial<ItemFormData & { ort: string }>): Observable<any> {
         return this.http.patch(`${this.baseUrl}/${id}`, daten, { headers: this.getHeaders() }).pipe(
-            tap(() => this.loadItems(tableId))
+            tap(() => this.loadItems(geraetId))
         );
     }
 
-    deleteItem(id: string, tableId: string): Observable<any> {
+    deleteItem(id: string, geraetId: string): Observable<any> {
         return this.http.delete(`${this.baseUrl}/${id}`, { headers: this.getHeaders() }).pipe(
-            tap(() => this.loadItems(tableId))
+            tap(() => this.loadItems(geraetId))
         );
     }
 
-    reorderItems(tableId: string, updates: { id: string; ort: string; schubladeIndex: number | null; reihenfolge: number }[]): Observable<any> {
+    reorderItems(geraetId: string, updates: { id: string; ort: string; schubladeIndex: number | null; reihenfolge: number }[]): Observable<any> {
         return this.http.patch(`${this.baseUrl}/reorder`, { updates }, { headers: this.getHeaders() }).pipe(
-            tap(() => this.loadItems(tableId))
+            tap(() => this.loadItems(geraetId))
         );
     }
 

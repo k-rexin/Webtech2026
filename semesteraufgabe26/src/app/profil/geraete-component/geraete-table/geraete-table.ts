@@ -15,18 +15,23 @@ type Position = 'links' | 'mitte' | 'rechts';
 export class GeraeteTable {
   private itemService = inject(ItemService);
 
-  // id der tabelle von geraeteComponent uebergeben
-  tableId = input.required<string>();
+  // vob geraeteComponent uebergeben und aufgeteilt 
+  geraetId = input.required<string>();
+  schubladeIndex = input<number | null>(null);
 
-  // liest passende items aus dem service aus
-  items = computed(() => this.itemService.getItems(this.tableId()));
+
+  private tableIdKey = computed(() =>
+    this.schubladeIndex() !== null ? `${this.geraetId()}-schublade-${this.schubladeIndex()}` : this.geraetId()
+  );
   // computed berechnet sich automatisch bei aenderung von tableId oder daten im service
 
+  items = computed(() => this.itemService.getItems(this.tableIdKey()));
+  
   positionen: Position[] = ['links', 'mitte', 'rechts'];
 
   constructor() {// laedt inhalt neu sobald sich tableId aendert
     effect(() => {
-      this.itemService.loadItems(this.tableId());
+      this.itemService.loadItems(this.geraetId());
     });
   }
 
@@ -38,7 +43,7 @@ export class GeraeteTable {
     );
   }
 
-  drop(event: CdkDragDrop<Item[]>) {
+  drop(event: CdkDragDrop<Item[]>) { // drag&drop magic
     if (event.previousContainer === event.container) {
       // Innerhalb derselben Position umsortieren
       const positionItems = [...event.container.data];
@@ -52,7 +57,7 @@ export class GeraeteTable {
         reihenfolge: index
       }));
 
-      this.itemService.reorderItems(this.tableId(), updates).subscribe({
+      this.itemService.reorderItems(this.geraetId(), updates).subscribe({
         error: (err) => console.log('Fehler beim Umsortieren:', err)
       });
       return;
@@ -74,15 +79,15 @@ export class GeraeteTable {
       }))
     ];
 
-    this.itemService.reorderItems(this.tableId(), updates).subscribe({
+    this.itemService.reorderItems(this.geraetId(), updates).subscribe({
       error: (err) => console.log('Fehler beim Verschieben:', err)
     });
   }
 
   deleteItem(item: Item) {
-    this.itemService.deleteItem(item.id, this.tableId()).subscribe({
-    error: (err) => console.log('Fehler beim Löschen:', err)
-  });
+    this.itemService.deleteItem(item.id, this.geraetId()).subscribe({
+      error: (err) => console.log('Fehler beim Löschen:', err)
+    });
   }
 
   modalOpenPosition = signal<Position | null>(null); //merkt sich fuer welche position modal offen ist (fuer Ort eintrag) (null = geschlossen)
@@ -114,7 +119,7 @@ export class GeraeteTable {
     const editId = this.editingItemId();
 
     if (editId) {
-      this.itemService.updateItem(editId, this.tableId(), { ...data, ort: position }).subscribe({
+      this.itemService.updateItem(editId, this.geraetId(), { ...data, ort: position }).subscribe({
         next: () => {
           this.modalOpenPosition.set(null);
           this.editingItemId.set(null);
@@ -122,7 +127,7 @@ export class GeraeteTable {
         error: (err) => console.log('Fehler beim Aktualisieren:', err)
       });
     } else {
-      this.itemService.addItem(this.tableId(), { ...data, ort: position }).subscribe({
+      this.itemService.addItem(this.geraetId(), this.schubladeIndex(), { ...data, ort: position }).subscribe({
         next: () => {
           this.modalOpenPosition.set(null);
           this.editingItemId.set(null);
