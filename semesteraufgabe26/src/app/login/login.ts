@@ -19,6 +19,7 @@ export class Login {
   private auth = inject(Auth);
 
   errorMessage = signal<string | null>(null);
+  successMessage = signal<string | null>(null);
 
   loginModel = signal<LoginData>({ username: '', password: '' });
 
@@ -42,5 +43,30 @@ export class Login {
       }
     });
   }
+
+  onRegister() { // zur registrierung 
+  const credentials = this.loginModel();
+
+  if (!credentials.username || !credentials.password) {
+    this.errorMessage.set('Bitte Username und Passwort eingeben');
+    return;
+  }
+
+  this.errorMessage.set(null);
+
+  this.auth.register(credentials.username, credentials.password).subscribe({
+    next: () => {
+      this.successMessage.set('Sie haben sich erfolgreich registriert und können sich jetzt einloggen!');
+      this.resetForm(); //leert nach erfolgreicher registrierung das formular
+    },
+    error: (err) => {
+      this.errorMessage.set(err.error?.message ?? 'Registrierung fehlgeschlagen');
+    }
+  });
+}
+
+resetForm() {
+  this.loginModel.set({ username: '', password: '' });
+}
 
 }

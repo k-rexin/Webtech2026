@@ -2,6 +2,8 @@ import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { GeraeteService } from '../../shared/geraete-service';
 import { ProfilTable } from "./profil-table/profil-table";
+import { Auth } from '../../shared/auth';
+import { Router } from '@angular/router';
 
 interface GeraetData {
   name: string;
@@ -17,9 +19,8 @@ interface GeraetData {
 })
 export class ProfilHome implements OnInit {
   private geraeteService = inject(GeraeteService);
-
-
-  //hier noch username aus backend abfragen ??
+  private auth = inject(Auth);
+  private router = inject(Router);
 
   isModalOpen = signal(false); //signals informieren alle beteiligten komponenten sofort bei aenderung des werts
 
@@ -72,6 +73,16 @@ export class ProfilHome implements OnInit {
     });
     this.submitted.set(false); //zuruecksetzen 
   }
+
+  deleteAccount() { //loescht userdaten nach abfrage und log out
+  const bestaetigt = confirm('Profil wirklich unwiderruflich löschen? Alle Geräte und Items gehen verloren.');
+  if (!bestaetigt) return;
+
+  this.auth.deleteAccount().subscribe({
+    next: () => this.router.navigate(['/']),
+    error: (err) => console.log('Fehler beim Löschen des Profils:', err)
+  });
+}
 
   ngOnInit(): void {
     this.geraeteService.loadGeraete();

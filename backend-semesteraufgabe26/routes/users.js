@@ -3,6 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const { getUserIdFromToken } = require('../utils/auth');
+const Geraet = require('../models/geraet');
+const Item = require('../models/item');
 
 //CREATE (post) neuen user anlegen - findOne(), hash(), save()
 router.post('/register', async (req, res) => {
@@ -50,6 +53,25 @@ router.post('/login', async (req, res) => {
     res.status(200);
     res.send({ token: token, user: userWithoutPassword });
 });
+
+
+// DELETE user loeschen (zuerst alle Items und Geraete geloescht dann UserId )
+router.delete('/me', async (req, res) => {
+  const userId = getUserIdFromToken(req);
+  if (!userId) {
+    res.status(401);
+    res.send({ message: 'Not authorized' });
+    return;
+  }
+
+  await Item.deleteMany({ userId: userId });
+  await Geraet.deleteMany({ userId: userId });
+  await User.deleteOne({ _id: userId });
+
+  res.status(204).send();
+});
+
+
 
 
 

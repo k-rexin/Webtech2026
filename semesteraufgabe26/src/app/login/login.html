@@ -1,4 +1,13 @@
 <main class="container-fluid">
+    
+@if (successMessage()) {
+  <div class="custom-toast">
+    <span>{{ successMessage() }}</span>
+    <button type="button" class="custom-toast-close" (click)="successMessage.set(null)">×</button>
+  </div>
+}
+
+
     <section class="my-3 text-center mx-auto" style="width: 35vw">
         <img src="Logo-transparent-cropped.png" class="img-fluid w-50  mb-4" alt="logo" />
         <div class="text mb-4">
@@ -40,9 +49,20 @@
         }
 
         <button type="submit" class="btn px-4 my-4">Login</button>
-    </form>
+
+        <div class="mt-2">
+            <button type="button" class="btn btn-sm btn-link" (click)="onRegister()">
+                Registrieren
+            </button>
+        </div>
+
 
         @if (errorMessage()) {
         <p class="text-danger text-center mt-2">{{ errorMessage() }}</p>
-}
+        }
+
+    </form>
+
+
+
 </main>
