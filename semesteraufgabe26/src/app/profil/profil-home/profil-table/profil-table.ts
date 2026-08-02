@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, effect } from '@angular/core';
 import { ItemService } from '../../../shared/item-service';
 import { GeraeteService } from '../../../shared/geraete-service';
 
@@ -9,7 +9,7 @@ import { GeraeteService } from '../../../shared/geraete-service';
   templateUrl: './profil-table.html',
   styleUrl: './profil-table.css',
 })
-export class ProfilTable {
+export class ProfilTable{
 private itemService = inject(ItemService);
 private geraeteService = inject(GeraeteService);
 
@@ -68,4 +68,11 @@ private positionReadable(ort: string): string {
     );
   });
 
+  constructor() {
+    effect(() => {
+      for (const geraet of this.geraeteService.geraete()) {
+        this.itemService.loadItems(geraet.id);
+      }
+    });
+  }
 }

@@ -4,6 +4,7 @@ import { GeraeteService } from '../../shared/geraete-service';
 import { ProfilTable } from "./profil-table/profil-table";
 import { Auth } from '../../shared/auth';
 import { Router } from '@angular/router';
+import { TitleCasePipe } from '@angular/common';
 
 interface GeraetData {
   name: string;
@@ -13,7 +14,7 @@ interface GeraetData {
 
 @Component({
   selector: 'app-profil-home',
-  imports: [FormField, ProfilTable],
+  imports: [FormField, ProfilTable, TitleCasePipe],
   templateUrl: './profil-home.html',
   styleUrl: './profil-home.css',
 })

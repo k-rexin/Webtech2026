@@ -1,5 +1,5 @@
 <div class="container-fluid text-center">
-    <h3 class="my-2"> Willkommen zurück, {{ username() }}! </h3>
+    <h3 class="my-2"> Willkommen zurück, {{ username() | titlecase}}! </h3>
     <button type="button" class="btn modalbutton my-3" (click)="openModal()"> + Neuen Eisschrank anlegen </button>
 
     <!--mit klick wird isModalOpen auf true gesetzt und damit unten angezeigt-->
