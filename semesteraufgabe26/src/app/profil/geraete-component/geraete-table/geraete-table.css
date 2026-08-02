@@ -17,13 +17,17 @@ div {
 }
 
 table {
-    font-size: x-large;
-    table-layout: fixed;
-    width: 100%;
+  font-size: clamp(1.1rem, 2vw, 1.8rem);
+  table-layout: fixed;
+  width: 100%;
 }
 
 .bi {
-    font-size: x-large;
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+}
+
+:host ::ng-deep .btn {
+  padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1.2vw, 0.6rem);
 }
 
 .item {
@@ -32,4 +36,11 @@ table {
 
 .editButtons {
     align-items: end;
+}
+
+@media (max-width: 700px) {
+  .item .editButtons,
+  .item > div:last-child {
+    display: none;
+  }
 }

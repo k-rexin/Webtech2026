@@ -29,3 +29,35 @@
     overflow-y: auto;
     max-height: 100%;
 }
+
+.edit-btn {
+  vertical-align: middle;
+  margin-left: 0.25rem;
+}
+
+.modal {
+    display: block;
+}
+
+.modal-content {
+    border-radius: 1rem;
+    border: none;
+    background-color: var(--light-purple);
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-title {
+    color: var(--purple);
+}
+
+.modal-body {
+    text-align: left;
+}
+
+button:hover {
+    text-decoration: underline;
+    font-weight: 500;
+}

@@ -22,6 +22,8 @@ export class ProfilHome implements OnInit {
   private auth = inject(Auth);
   private router = inject(Router);
 
+  username = computed(() => this.auth.user()?.username ?? ''); 
+
   isModalOpen = signal(false); //signals informieren alle beteiligten komponenten sofort bei aenderung des werts
 
   openModal() {

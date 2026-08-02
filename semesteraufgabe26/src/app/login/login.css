@@ -1,36 +1,49 @@
-.text {
-    color: var(--dark);
-    font-size: large;
-    font-weight: 500;
+div {
+  color: var(--dark);
 }
 
 .error-list {
-    background-color: rgb(from var(--light-purple) r g b / 75%);
+  background-color: rgb(from var(--light-purple) r g b / 75%);
 }
 
-button {
-    background-color: rgb(from var(--purple) r g b / 75%);
-    color: var(--dark);
-    font-size: large;
-    font-weight: 500;
-    border-color: var(--dark);
-    border-radius: 0px;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.15);
+.login-button {
+  background-color: rgb(from var(--purple) r g b / 75%);
+  color: var(--dark);
+  font-size: large;
+  font-weight: 500;
+  border-color: var(--dark);
+  border-radius: 0px;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-button:hover {
-    background-color: var(--purple);
-    border-color: var(--dark);
-    font-weight: 600;
-    border-width: 0.1rem;
-    box-shadow: 0 .8rem 2rem rgba(0, 0, 0, 0.19);
+.login-button:hover {
+  background-color: var(--purple);
+  border-color: var(--dark);
+  font-weight: 600;
+  box-shadow: 0 .8rem 2rem rgba(0, 0, 0, 0.19);
+}
+
+.register-button {
+  background-color: rgb(from var(--light-purple) r g b / 75%);
+  color: var(--dark);
+  font-size: small;
+  border-color: var(--dark);
+  border-radius: 0px;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.register-button:hover{
+  background-color: var(--light-purple);
+  border-color: var(--dark);
+  font-weight: 600;
+  box-shadow: 0 .8rem 2rem rgba(0, 0, 0, 0.19);
 }
 
 .form-control {
-    color: var(--grey);
-    background-color: rgb(from var(--light-blue) r g b / 75%);
-    text-align: center;
-    border-radius: 0px;
+  color: var(--grey);
+  background-color: rgb(from var(--light-blue) r g b / 75%);
+  text-align: center;
+  border-radius: 0px;
 }
 
 .custom-toast {
@@ -71,6 +84,7 @@ button:hover {
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;

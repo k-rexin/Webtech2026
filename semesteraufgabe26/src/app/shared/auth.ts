@@ -46,7 +46,7 @@ export class Auth {
     this.token.set(null);
   }
 
-  deleteAccount(): Observable<any> { // userdaten werden geloesch, danach logout
+  deleteAccount(): Observable<any> { // userdaten werden geloescht, danach logout
     const headers = new HttpHeaders(this.getAuthHeaders());
     return this.http.delete(`${this.baseUrl}/users/me`, { headers }).pipe(
       tap(() => this.logout())

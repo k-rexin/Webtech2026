@@ -28,11 +28,11 @@
             <span>{{ item.name }}</span>
           </div>
 
-          <div>
-            <button type="button" class="btn btn-sm border-0 bg-transparent" (click)="editItem(item)">
+          <div class="editButtons">
+            <button type="button" class="btn border-0 bg-transparent" (click)="editItem(item)">
               <i class="bi bi-pencil"></i>
             </button>
-            <button type="button" class="btn btn-sm border-0 bg-transparent" (click)="deleteItem(item)">
+            <button type="button" class="btn border-0 bg-transparent" (click)="deleteItem(item)">
               <i class="bi bi-trash3"></i>
             </button>
           </div>

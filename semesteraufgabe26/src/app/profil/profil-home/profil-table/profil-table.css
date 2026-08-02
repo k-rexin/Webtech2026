@@ -22,12 +22,12 @@ input {
 }
 
 input:focus {
-    background-color: rgb(from var(--grey) r g b / 20%);
+    background-color: rgb(from var(--light-purple) r g b / 75%);
     box-shadow: 0 0 0 0.40rem rgb(from var(--light-purple) r g b / 100%);
     border-color: var(--purple);
 }
 input:hover{
-    background-color: rgb(from var(--grey) r g b / 20%);
+    background-color: rgb(from var(--light-purple) r g b / 75%);
     box-shadow: 0 0 0 0.40rem rgb(from var(--light-purple) r g b / 100%);
     border-color: var(--purple);
 }
