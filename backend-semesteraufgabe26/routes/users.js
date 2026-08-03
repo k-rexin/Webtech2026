@@ -57,7 +57,7 @@ router.post('/login', async (req, res) => {
 
 // DELETE user loeschen (zuerst alle Items und Geraete geloescht dann UserId )
 router.delete('/me', async (req, res) => {
-  const userId = getUserIdFromToken(req);
+  const userId = getUserIdFromToken(req); // nur der user der eingeloggt ist kann profil loeschen
   if (!userId) {
     res.status(401);
     res.send({ message: 'Not authorized' });

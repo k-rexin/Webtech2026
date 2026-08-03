@@ -13,7 +13,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-app.use(cors()); // Anfragen definierene, sodass sie im Sinne der SOP trotzdem erlaubt sind 
+app.use(cors()); // Anfragen definierene, sodass sie im Sinne der SOP trotzdem erlaubt sind (regelt welche webseite anfragen an DB stellen darf)
 app.use('/users', userRoutes);
 app.use('/geraete', geraeteRoutes);
 app.use('/items', itemRoutes);
