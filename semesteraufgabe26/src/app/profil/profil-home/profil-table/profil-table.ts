@@ -70,8 +70,8 @@ private positionReadable(ort: string): string {
 
   constructor() {
     effect(() => {
-      for (const geraet of this.geraeteService.geraete()) {
-        this.itemService.loadItems(geraet.id);
+      for (const geraet of this.geraeteService.geraete()) { //ruft geraete-service auf und ruft fuer jedes geraet
+        this.itemService.loadItems(geraet.id); // den itemservice auf zum laden der items pro geraet
       }
     });
   }

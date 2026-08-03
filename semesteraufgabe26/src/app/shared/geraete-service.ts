@@ -18,6 +18,8 @@ export class GeraeteService {
   private http = inject(HttpClient);
   private auth = inject(Auth);
   private baseUrl = 'http://localhost:3000/geraete';
+  
+  //wird von navbar abgefragt und durchgegangen
   geraete = signal<Geraet[]>([]); // ist signal mit array-liste stat einzelnem objekt fuer alle angelegten geraete
 
 

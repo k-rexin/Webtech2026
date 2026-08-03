@@ -18,7 +18,7 @@ export class GeraeteComponent {
   private geraeteService = inject(GeraeteService);
 
   // reagiert automatisch auf aenderungen der :id in der URL
-  private id = toSignal(this.route.paramMap.pipe(map(p => p.get('id'))));
+  private id = toSignal(this.route.paramMap.pipe(map(p => p.get('id')))); 
 
   geraet = computed(() =>
     this.geraeteService.geraete().find(g => g.id === this.id())

@@ -19,6 +19,17 @@ export class Auth {
 
   isAuthenticated = computed(() => this.token() !== null); // gilt als eingeloggt wenn es token gibt 
 
+   constructor() {
+    // beim Start pruefen, ob noch ein Token aus einer vorherigen Sitzung gespeichert ist
+    const gespeicherterToken = localStorage.getItem('token');
+    const gespeicherterUser = localStorage.getItem('user');
+    //wenn ja wird man nicht automatisch ausgeloggt/ zur login seite gebracht
+    if (gespeicherterToken && gespeicherterUser) {
+      this.token.set(gespeicherterToken);
+      this.user.set(JSON.parse(gespeicherterUser));
+    }
+  }
+
   getAuthHeaders() { // hilfsfunktion um jedem request den richtigen header (autorisierung-token, username) mitzuschicken
     return {
       authorization: this.token() ?? '',
@@ -37,6 +48,9 @@ export class Auth {
       tap((response: any) => {  // tap von RxJS nutzt response um zusaetzlich folgendes auszufuehren
         this.token.set(response.token); // token und user werden aus backend dem signal uebergeben
         this.user.set(response.user);
+        //speichert token&user solange wie es keinen logout gibt
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
       })
     );
   }
@@ -44,6 +58,8 @@ export class Auth {
   logout(): void {
     this.user.set(null);
     this.token.set(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   deleteAccount(): Observable<any> { // userdaten werden geloescht, danach logout
