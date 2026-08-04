@@ -32,7 +32,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-
+  
     const user = await User.findOne({ username: username });
     if (!user) {
         res.status(401);
@@ -47,6 +47,7 @@ router.post('/login', async (req, res) => {
         return;
     }
 
+        console.log("username3: ", username)
     const userWithoutPassword = { id: user._id, username: user.username }; // Payload des JWT
     const token = jwt.sign(userWithoutPassword, username); // username als secret fuer Signatur
 

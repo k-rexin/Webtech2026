@@ -75,7 +75,7 @@ router.patch('/reorder', async (req, res) => {
   }
 });
 
-//UPDATE (patch) daten eines items aendern - findOne(), updateOne()
+//UPDATE (patch) daten eines items aendern - findOne(), save()
 router.patch('/:id', async (req, res) => {
     const userId = getUserIdFromToken(req);
     if (!userId) {  // nur eingeloggter User
@@ -85,7 +85,7 @@ router.patch('/:id', async (req, res) => {
     }
 
     try {
-        const item = new Item.findOne({ _id: req.params.id, userId: userId });
+        const item = await Item.findOne({ _id: req.params.id, userId: userId });
         if (!item) {
             res.status(404);
             res.send({ error: 'Item does not exist!' });
@@ -97,9 +97,10 @@ router.patch('/:id', async (req, res) => {
         if (req.body.mhd) item.mhd = req.body.mhd;
         if (req.body.ort) item.ort = req.body.ort;
 
-        await Item.updateOne({ _id: req.params.id }, item);
+        await item.save();
         res.send(item);
-    } catch {
+    } catch (err) {
+        console.log(err);
         res.status(404);
         res.send({ error: "Item does not exist!" });
     }
