@@ -38,15 +38,15 @@ Dieses Projekt ist im Rahmen der Vorlesung **Web Technologien** an der HTW Berli
 
 | Login | Profil-Übersicht |
 |---|---|
-| ![Login](public\screenshots\login-screen.png) | ![Profil](public\screenshots\profil-screen.png) |
+| ![Login](public/screenshots/login-screen.png) | ![Profil](public/screenshots/profil-screen.png) |
 
 | Gerät anlegen | Suchfunktion |
 |---|---|
-| ![Anlegen](public\screenshots\gerät-anlegen.png) | ![Suche](public\screenshots\suchfunktion.png) |
+| ![Anlegen](public/screenshots/gerät-anlegen.png) | ![Suche](public/screenshots/suchfunktion.png) |
 
 | Gerät mit Items | Item bearbeiten |
 |---|---|
-| ![Geraet](public\screenshots\gerät-screen.png) | ![Bearbeiten](public\screenshots\item-bearbeiten.png) |
+| ![Geraet](public/screenshots/gerät-screen.png) | ![Bearbeiten](public/screenshots/item-bearbeiten.png) |
 
 ---
 

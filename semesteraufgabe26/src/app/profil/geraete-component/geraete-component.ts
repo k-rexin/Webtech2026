@@ -17,6 +17,10 @@ export class GeraeteComponent {
   private router = inject(Router);
   private geraeteService = inject(GeraeteService);
 
+    constructor() {
+    this.geraeteService.loadGeraete();  // damit bei refresh geraet angezeigt wird
+  }
+
   // reagiert automatisch auf aenderungen der :id in der URL
   private id = toSignal(this.route.paramMap.pipe(map(p => p.get('id')))); 
 

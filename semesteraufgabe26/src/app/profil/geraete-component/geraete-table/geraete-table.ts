@@ -26,7 +26,7 @@ export class GeraeteTable {
   // computed berechnet sich automatisch bei aenderung von tableId oder daten im service
 
   items = computed(() => this.itemService.getItems(this.tableIdKey()));
-  
+
   positionen: Position[] = ['links', 'mitte', 'rechts'];
 
   constructor() {// laedt inhalt neu sobald sich tableId aendert
@@ -68,16 +68,17 @@ export class GeraeteTable {
     const newPosition = event.container.id as Position;
     const zielListe = [...event.container.data];
 
+    zielListe.splice(event.currentIndex, 0, { ...movedItem, ort: newPosition });
+    //damit items wird an der stelle eingesetzt werden wo sie sollen und nciht nach ganz unten rutschen
+
+
     // Item wird ans Ende der Zielspalte gehängt
-    const updates = [
-      { id: movedItem.id, ort: newPosition, schubladeIndex: movedItem.schubladeIndex, reihenfolge: zielListe.length },
-      ...zielListe.map((item, index) => ({
-        id: item.id,
-        ort: item.ort,
-        schubladeIndex: item.schubladeIndex,
-        reihenfolge: index
-      }))
-    ];
+    const updates = zielListe.map((item, index) => ({
+      id: item.id,
+      ort: newPosition,
+      schubladeIndex: item.schubladeIndex,
+      reihenfolge: index
+    }));
 
     this.itemService.reorderItems(this.geraetId(), updates).subscribe({
       error: (err) => console.log('Fehler beim Verschieben:', err)
