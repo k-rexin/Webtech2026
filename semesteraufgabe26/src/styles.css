@@ -9,6 +9,8 @@
     --light-blue: #CDF2FF;
     --light-purple: #D2DCFF;
     --font: 'Raleway Variable', sans-serif;
+    --header-height: clamp(3.5rem, 9vw, 6.5rem); /* responsive werte fuer verschiedene screens*/
+    --nav-height: clamp(2.75rem, 7vw, 3.5rem);
 }
 
 body{

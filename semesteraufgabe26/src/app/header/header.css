@@ -7,17 +7,18 @@ header{
     top:0;
     left:0;
     width: 100vw;
-    height: 6.5rem;
+    height: var(--header-height);
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: start;
-    /*background-color: rgb(from var(--light-purple) r g b / 50%);*/
+    padding-left: clamp(0.5rem, 2vw, 1rem);
    
 }
 
 .logo{
-    height: 6.5rem;
+    height: 98%;
+    width: auto;
 }
 
 button {
@@ -25,6 +26,8 @@ button {
     border-radius: 0px;
     color: var(--dark);
     font-weight: 500;
+    padding: clamp(0.25rem, 1vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
+    font-size: clamp(0.75rem, 1.6vw, 1rem);
 }
 
 button:hover {

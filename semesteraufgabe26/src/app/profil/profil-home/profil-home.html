@@ -1,6 +1,6 @@
 <div class="container-fluid text-center">
     <h3 class="my-2"> Willkommen zurück, {{ username() | titlecase}}! </h3>
-    <button type="button" class="btn modalbutton my-3" (click)="openModal()"> + Neuen Eisschrank anlegen </button>
+    <button type="button" class="btn modalbutton my-2" (click)="openModal()"> + Neuen Eisschrank anlegen </button>
 
     <!--mit klick wird isModalOpen auf true gesetzt und damit unten angezeigt-->
     @if (isModalOpen()) {
@@ -75,7 +75,7 @@
     </div>
     }
 
-    <h5 class="mt-4">Wo ist Was? Hier suchen!</h5>
+    <h5 class="mt-3">Wo ist Was? Hier suchen!</h5>
 
     <app-profil-table></app-profil-table>
 

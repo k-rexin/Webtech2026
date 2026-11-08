@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
     <div class="mb-3 d-flex justify-content-center">
-        <input type="text" class="form-control w-25 " placeholder="Suchen..."
+        <input type="text" class="form-control w-50" placeholder="Suchen..."
             [value]="searchText()" (input)="searchText.set($any($event.target).value)">
         <!--input bindet an signal und nicht an ReactiveFormsModule/FormControl-->
     </div>

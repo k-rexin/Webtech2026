@@ -1,15 +1,27 @@
 nav {
     position: fixed;
-    top: 6.5rem;
+    top: var(--header-height);
     left: 0;
     width: 100vw;
+    height: var(--nav-height);
     border-style: double;
     border-width: 5px;
     border-color: var(--light-purple);
     background-color: rgb(from var(--light-purple) r g b / 25%);
- 
+    display: flex;
+    align-items: center;
+    overflow-x: auto;     /*seitlich scrollen*/
+    overflow-y: hidden;
+    white-space: nowrap;
 }
 
 .navbar-brand{
     color: var(--dark);
+    flex-shrink: 0;
+}
+
+.nav-link {
+    font-size: clamp(0.9rem, 1.6vw, 1.1rem) !important;
+    padding: clamp(0.25rem, 1vw, 0.5rem) clamp(0.5rem, 1.5vw, 0.75rem) !important;
+    white-space: nowrap;
 }

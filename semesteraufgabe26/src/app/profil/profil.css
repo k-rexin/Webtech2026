@@ -1,6 +1,6 @@
 main{
     position: fixed;
-    top: 10rem;      /* hoehe vom header */
+    top: calc(var(--header-height) + var(--nav-height));     /* hoehe vom header */
     bottom: 1.5rem;   /* hoehe vom footer */
     left: 0;
     width: 100vw;
@@ -9,10 +9,10 @@ main{
 
 div{
     position: fixed;
-    top: 11rem;
+    top: calc(var(--header-height) + var(--nav-height) + 0.5rem);
     bottom: 2rem; 
-    left: 3rem;
-    right: 3rem;
+    left: clamp(0.25rem, 3vw, 3rem);
+    right: clamp(0.25rem, 3vw, 3rem);
     background-color: rgb(from var(--light-blue) r g b / 75%);
     overflow-y: auto;   /* scrollt, wenn Inhalt nicht reinpasst */
     overflow-x: hidden; /* kein horizontales scrollen */ 
